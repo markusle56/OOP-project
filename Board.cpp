@@ -56,3 +56,19 @@ void Board::setupBoard() {
     // board[7][3] = new King(true, 7,3);
     // board[7][4] = new Queen(true, 7,4);    
 }
+
+Piece* Board::getPieceAt(int x, int y) {
+    return board[x][y];
+}
+
+void Board::movePiece(const Move& move) {
+    Piece* piece = board[move.startX][move.startY];
+    if(piece)
+    {
+        board[move.endX][move.endY] = piece;
+        board[move.startX][move.startY] = nullptr;
+        piece->setPosition(move.endX, move.endY);
+        move_history.push_back(move);
+    }
+    return;
+}

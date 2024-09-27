@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Piece.h"
 #include "Pawn.h" 
+#include "Move.h"
 
 int main()
 {

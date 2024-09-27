@@ -16,7 +16,7 @@ Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y) {
 
 void Pawn::draw(sf::RenderWindow& window) {
     sprite.setScale(0.2,0.2);
-    sprite.setPosition(x*125 + 7,y*125 + 10);
+    sprite.setPosition(calculatePosition());
     window.draw(sprite);
 }
 

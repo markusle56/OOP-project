@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Move.h"
 
 class Piece{
     protected:
@@ -15,7 +16,11 @@ class Piece{
     public: 
         virtual void draw(sf::RenderWindow& window);
         Piece(bool isWhite,int x, int y);
+        void setPosition(int x, int y);
         ~Piece();
+        sf::Vector2f calculatePosition();
+        int getX();
+        int getY();
         
 };
 #endif
