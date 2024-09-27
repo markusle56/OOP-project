@@ -3,19 +3,24 @@
 
 #include <SFML/Graphics.hpp>
 #include "Piece.h"
+#include "Pawn.h"
 
 class Board {
     private:
         Piece * board[8][8];
+        sf::Texture texture;
+        sf::Sprite sprite;
+        std::string textureFilePath;
+        
     public:
         Board();
-        ~Borad();
+        ~Board();
         void setupBoard();
         void draw(sf::RenderWindow& window);
-        bool isMoveLegal(const Move& move);
-        bool isCheck(bool isWhite);
-        Piece* getPieceAt(int x, int y);
-        void movePiece(const Move& move);
-        // Additional functions as needed
+        // bool isMoveLegal(const Move& move);
+        // bool isCheck(bool isWhite);
+        // Piece* getPieceAt(int x, int y);
+        // void movePiece(const Move& move);
+
 };
 #endif
