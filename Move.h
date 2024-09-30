@@ -6,6 +6,7 @@ class Board;
 
 class Move
 {
+
 public:
     Move(int startX, int startY, int endX, int endY, Piece* captured);
     bool isValid() const;

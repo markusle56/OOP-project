@@ -7,7 +7,7 @@
 int main()
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(1000,1000), "Maj Chess");
+    sf::RenderWindow window(sf::VideoMode(800,800), "Maj Chess");
 
    
     Board board; 

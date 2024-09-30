@@ -9,16 +9,18 @@ void Piece::draw(sf::RenderWindow& window) {}
 void Piece::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
-    sprite.setPosition(calculatePosition());
+    float posX = 100*x;
+    float posY = 100*y;
+    sf::Vector2f Pos(posX,posY);
+    sprite.setPosition(Pos);
     return;
 }
 
-sf::Vector2f Piece::calculatePosition() {
-    float posX = 125*x + 7 ;
-    float posY = 125*y + 10;
-    sf::Vector2f Pos(posX,posY);
-    return Pos;
-}
 
 int Piece::getX() {return x;}
 int Piece::getY() {return y;}
+
+bool Piece::isW() { return isWhite;}
+
+
+std::vector<Move> Piece::getPossibleMoves(Board& board) {}

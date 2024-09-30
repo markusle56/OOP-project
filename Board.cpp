@@ -27,7 +27,7 @@ Board::~Board()
 
 void Board::draw(sf::RenderWindow& window)
 {   
-    sprite.setScale(0.9259,0.9259);
+    sprite.setScale(0.74074,0.74074);
     window.draw(sprite);
     board[1][1]->draw(window);
     // Draw all pieces

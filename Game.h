@@ -3,13 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include "Board.h"
-
+#include <vector>
 class Game {
     private:
         Board board;
         bool isWhiteTurn;
         bool gameOver;
         sf::RenderWindow window;
+        std::vector<Move> possibleMoves;
     public:
         Game();
         ~Game();

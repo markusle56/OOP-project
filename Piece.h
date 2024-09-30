@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Move.h"
+#include "Board.h"
 
 class Piece{
     protected:
@@ -18,9 +19,10 @@ class Piece{
         Piece(bool isWhite,int x, int y);
         void setPosition(int x, int y);
         ~Piece();
-        sf::Vector2f calculatePosition();
+        virtual std::vector<Move> getPossibleMoves(Board& board);
         int getX();
         int getY();
+        bool isW();
         
 };
 #endif

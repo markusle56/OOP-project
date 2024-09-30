@@ -5,10 +5,10 @@
 
 class Pawn : public Piece {
     private: 
-        bool firstmove; 
+        bool firstMove; 
     public:
         Pawn(bool isWhite, int x, int y);
-        // virtual std::vector<Move> getPossibleMoves(Board& board);
+        virtual std::vector<Move> getPossibleMoves(Board& board);
         // void promote();
         void draw(sf::RenderWindow& window);
         bool canPromote();
