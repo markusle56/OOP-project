@@ -1,4 +1,6 @@
 #include "Board.h"
+#include <cstdlib> 
+#include <ctime>   
 
 Board::Board()
 {   
@@ -69,6 +71,61 @@ void Board::movePiece(const Move& move) {
         board[move.startX][move.startY] = nullptr;
         piece->setPosition(move.endX, move.endY);
         move_history.push_back(move);
+        this->swap(piece);
+
     }
     return;
+}
+
+bool Board::isCheck(bool isWhite) {
+
+    Piece * piece = nullptr;
+    Piece * king = nullptr;
+    std::vector<Move> possibleMoves; 
+    for (int i = 0; i < 8; i++) { 
+        for (int j = 0; j < 8; j++) {
+            piece = board[i][j];
+            if (piece && piece->getIsWhite() == isWhite) {
+                std::vector<Move> pieceMoves = piece->getPossibleMoves(*this);
+                possibleMoves.insert(possibleMoves.end(), pieceMoves.begin(), pieceMoves.end());
+            }
+            if (piece && piece->isKing(!isWhite)) {
+                king = piece;
+            }
+        }
+    }
+    for (auto move: possibleMoves) {
+        if(move.isTargeted(king)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Board::swap(Piece *piece) {
+    if (piece == nullptr) {
+        return;
+    }
+    std::vector<sf::Vector2i> swappablePiece;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (board[i][j] && board[i][j]->isSwappable(piece->getIsWhite())) {
+                swappablePiece.push_back(board[i][j]->getPosition());
+            }
+        }
+    }
+    if (swappablePiece.size() < 1 ) {
+        return;
+    }
+    srand(time(0));
+    int randNum = rand() / swappablePiece.size();
+    sf::Vector2i swappedPiece = swappablePiece[randNum];
+    board[piece->getX()][piece->getY()] = board[swappedPiece.x][swappedPiece.y];
+    board[piece->getX()][piece->getY()]->setPosition(piece->getX(),piece->getY());
+    
+    board[swappedPiece.x][swappedPiece.y] = piece;
+    board[swappedPiece.x][swappedPiece.y]->setPosition(swappedPiece.x, swappedPiece.y);
+
+    return; 
+
 }

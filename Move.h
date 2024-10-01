@@ -11,7 +11,7 @@ public:
     Move(int startX, int startY, int endX, int endY, Piece* captured);
     bool isValid() const;
     void execute(Board& board);
-
+    bool isTargeted(Piece * piece);
     int startX, startY;
     int endX, endY;
     Piece* captured_piece;

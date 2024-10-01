@@ -18,3 +18,11 @@ void Move::execute(Board& board) {
     }
     return;
 }
+
+bool Move::isTargeted(Piece *piece) {
+    if (endX == piece->getX() && endY == piece->getY())
+    {
+        return true;
+    }
+    return false;
+}

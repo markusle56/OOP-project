@@ -18,10 +18,10 @@ class Board {
         ~Board();
         void setupBoard();
         void draw(sf::RenderWindow& window);
-        // bool isMoveLegal(const Move& move);
-        // bool isCheck(bool isWhite);
+        bool isCheck(bool isWhite);
         Piece* getPieceAt(int x, int y);
         void movePiece(const Move& move);
+        void swap(Piece * piece);
 
 };
 #endif

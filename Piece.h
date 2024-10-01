@@ -22,7 +22,9 @@ class Piece{
         virtual std::vector<Move> getPossibleMoves(Board& board);
         int getX();
         int getY();
-        bool isW();
-        
+        bool getIsWhite();
+        virtual bool isKing(bool isWhite);
+        virtual bool isSwappable(bool isWhite);
+        sf::Vector2i getPosition();
 };
 #endif

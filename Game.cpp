@@ -38,7 +38,7 @@ void Game::handleInput()
                 int Y = mosueY / 100;
                 if (selectedPiece = nullptr) {
                     selectedPiece = board.getPieceAt(X,Y);
-                    if (selectedPiece && selectedPiece->isW()== isWhiteTurn) {
+                    if (selectedPiece && selectedPiece->getIsWhite()== isWhiteTurn) {
                         possibleMoves = selectedPiece->getPossibleMoves(board);
                     }
                 } else {
@@ -63,6 +63,7 @@ void Game::handleInput()
 
 void Game::update()
 {
+
     if(gameOver) {
         return;
     }
@@ -72,7 +73,12 @@ void Game::render()
 {
     window.clear(sf::Color::White);
 
-    // draw higlighted of possible move
+    for (auto move : possibleMoves) {
+        sf::RectangleShape hightlightedSquare(sf::Vector2f(100, 100));
+        hightlightedSquare.setPosition(move.endX*100, move.endY*100);
+        hightlightedSquare.setFillColor(sf::Color(100,250,50,100));
+        window.draw(hightlightedSquare);
+    }
 
     board.draw(window);
     window.display();

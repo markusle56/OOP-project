@@ -20,7 +20,15 @@ void Piece::setPosition(int x, int y) {
 int Piece::getX() {return x;}
 int Piece::getY() {return y;}
 
-bool Piece::isW() { return isWhite;}
+bool Piece::getIsWhite() { return isWhite;}
 
 
 std::vector<Move> Piece::getPossibleMoves(Board& board) {}
+
+bool Piece::isKing(bool isWhite) {return false;}
+
+bool Piece::isSwappable(bool isWhite) {
+    return false;
+}
+
+sf::Vector2i Piece::getPosition() {return sf::Vector2i(x,y);}

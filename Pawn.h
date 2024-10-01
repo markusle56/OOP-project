@@ -12,6 +12,7 @@ class Pawn : public Piece {
         // void promote();
         void draw(sf::RenderWindow& window);
         bool canPromote();
+        bool isSwappable(bool isWhite);
 
 };
 #endif
