@@ -1,6 +1,5 @@
 #include "Board.h"
-#include <cstdlib> 
-#include <ctime>   
+
 
 Board::Board()
 {   
@@ -31,18 +30,17 @@ void Board::draw(sf::RenderWindow& window)
 {   
     sprite.setScale(0.74074,0.74074);
     window.draw(sprite);
-    board[1][1]->draw(window);
-    // Draw all pieces
-    // for(int i = 0; i < 8; ++i)
-    //     for(int j = 0; j < 8; ++j)
-    //         if(board[i][j] != nullptr)
-               ///board[i][j]->draw(window);
+    
+    for(int i = 0; i < 8; ++i)
+        for(int j = 0; j < 8; ++j)
+            if(board[i][j] != nullptr)
+               board[i][j]->draw(window);
 }
 
 void Board::setupBoard() {
     for (int i = 0; i < 8; i++) {
-        board[1][i] = new Pawn(false, 1, i);
-        board[6][i] = new Pawn(true, 6, i);
+        board[i][1] = new Pawn(false, i, 1);
+        board[i][6] = new Pawn(true, i, 6);
     }
     int temp[] = {0,7};
     for (int i = 0; i < 2; i++) {
@@ -52,6 +50,7 @@ void Board::setupBoard() {
             // board[temp[i]][6] = new Knight(i,temp[i],6);
             // board[temp[i]][2] = new Bishop(i,temp[i],2);
             // board[temp[i]][5] = new Bishop(i,temp[i],5);
+            // need to covert
     }
     // board[0][3] = new Queen(false,0,3);
     // board[0][4] = new King(false,0,4);

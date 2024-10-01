@@ -3,10 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "Move.h"
-#include "Board.h"
+#include <string>
 
-class Piece{
+class Move;  // Forward declaration of Move
+class Board; // Forward declaration of Board
+
+class Piece {
     protected:
         int x; 
         int y;

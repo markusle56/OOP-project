@@ -3,31 +3,14 @@
 #include "Piece.h"
 #include "Pawn.h" 
 #include "Move.h"
+#include "Game.h"
 
 int main()
 {
-    // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800,800), "Maj Chess");
+    Game game;
+    game.init();
+    game.run();
 
-   
-    Board board; 
-    // Main loop
-    while (window.isOpen()) {
-        // Process events
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        // Clear the screen
-        window.clear();
-
-        board.setupBoard();
-        board.draw(window);
-        // Display the window contents
-        window.display();
-    }
 
     return 0;
 }

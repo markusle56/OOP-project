@@ -1,6 +1,8 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+#include "Piece.h"
+
 class Piece;
 class Board;
 
@@ -12,6 +14,7 @@ public:
     bool isValid() const;
     void execute(Board& board);
     bool isTargeted(Piece * piece);
+    void draw(sf::RenderWindow &window);
     int startX, startY;
     int endX, endY;
     Piece* captured_piece;

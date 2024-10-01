@@ -1,4 +1,6 @@
 #include "Piece.h"
+#include "Move.h" // Include when needed
+#include "Board.h" // Include when needed
 
 Piece::Piece(bool isWhite, int x, int y): isWhite(isWhite), x(x), y(y) {}
 
@@ -9,8 +11,8 @@ void Piece::draw(sf::RenderWindow& window) {}
 void Piece::setPosition(int x, int y) {
     this->x = x;
     this->y = y;
-    float posX = 100*x;
-    float posY = 100*y;
+    float posX = 100*x + 10;
+    float posY = 100*y + 10;
     sf::Vector2f Pos(posX,posY);
     sprite.setPosition(Pos);
     return;
@@ -23,7 +25,9 @@ int Piece::getY() {return y;}
 bool Piece::getIsWhite() { return isWhite;}
 
 
-std::vector<Move> Piece::getPossibleMoves(Board& board) {}
+std::vector<Move> Piece::getPossibleMoves(Board& board) { 
+    std::vector<Move> pieces;
+    return pieces;}
 
 bool Piece::isKing(bool isWhite) {return false;}
 

@@ -1,11 +1,13 @@
 #include "Pawn.h"
+#include "Board.h"
+#include "iostream"
 
 
 Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true) {
     if(isWhite) {
-        textureFilePath = "IMG/Pawn_B.png";
-    } else {
         textureFilePath = "IMG/Pawn_W.png";
+    } else {
+        textureFilePath = "IMG/Pawn_B.png";
     }
     if (!texture.loadFromFile(textureFilePath))
     {
@@ -15,20 +17,20 @@ Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true) {
 }
 
 void Pawn::draw(sf::RenderWindow& window) {
-    sprite.setScale(0.2,0.2);
+    sprite.setScale(0.15,0.15);
     this->setPosition(x,y);
     window.draw(sprite);
 }
 
 bool Pawn::canPromote() {
     if (isWhite) {
-        if (y == 7) {
+        if (x == 0) {
             return true;
         } else {
             return false;
         }
     } else {
-        if (y == 0) {
+        if (x == 7) {
             return true;
         } else {
             return false;
@@ -42,13 +44,14 @@ std::vector<Move> Pawn::getPossibleMoves(Board& board) {
 
     int direction; 
     if (isWhite) {
-        direction = 1;
+        direction = -1;
     } else {
-        direction = -1; 
+        direction = 1; 
     }
     int newY = y + direction;
     if (board.getPieceAt(x, newY) == nullptr) {
         moves.emplace_back(x,y,x,newY,nullptr);
+        std::cout<<"run"<<std::endl;
         if (firstMove && board.getPieceAt(x, newY+1) == nullptr) {
             moves.emplace_back(x,y,x,newY+1,nullptr);
         }

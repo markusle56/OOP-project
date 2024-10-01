@@ -2,9 +2,13 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
+#include "Move.h"
 #include "Piece.h"
 #include "Pawn.h"
 #include <vector>
+#include <cstdlib> 
+#include <ctime>   
+#include <string>
 
 class Board {
     private:

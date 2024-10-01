@@ -1,5 +1,6 @@
 #include "Move.h"
 #include "Board.h"
+#include "Piece.h"
 
 Move::Move(int startX, int startY, int endX, int endY, Piece* captured): startX(startX), startY(startY), endX(endX), endY(endY), captured_piece(captured) {}
 
@@ -25,4 +26,11 @@ bool Move::isTargeted(Piece *piece) {
         return true;
     }
     return false;
+}
+
+void Move::draw(sf::RenderWindow& window) {
+    sf::RectangleShape highlightedSquare(sf::Vector2f(100, 100));
+    highlightedSquare.setPosition(endX * 100, endY * 100);
+    highlightedSquare.setFillColor(sf::Color(255,255,255, 255));
+    window.draw(highlightedSquare); 
 }

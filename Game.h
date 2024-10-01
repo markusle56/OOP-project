@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include <vector>
+#include <iostream>
+
 class Game {
     private:
         Board board;
@@ -11,6 +13,7 @@ class Game {
         bool gameOver;
         sf::RenderWindow window;
         std::vector<Move> possibleMoves;
+        Piece * selectedPiece;
     public:
         Game();
         ~Game();
