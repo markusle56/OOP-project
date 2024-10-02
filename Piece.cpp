@@ -36,3 +36,8 @@ bool Piece::isSwappable(bool isWhite) {
 }
 
 sf::Vector2i Piece::getPosition() {return sf::Vector2i(x,y);}
+
+
+bool Piece::isPawn() {return false;}
+
+void Piece::doFirstMove() {return;}
