@@ -31,6 +31,6 @@ bool Move::isTargeted(Piece *piece) {
 void Move::draw(sf::RenderWindow& window) {
     sf::RectangleShape highlightedSquare(sf::Vector2f(100, 100));
     highlightedSquare.setPosition(endX * 100, endY * 100);
-    highlightedSquare.setFillColor(sf::Color(255,255,255, 255));
+    highlightedSquare.setFillColor(sf::Color(255, 255, 51, 128));
     window.draw(highlightedSquare); 
 }

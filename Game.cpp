@@ -36,29 +36,30 @@ void Game::handleInput()
                 int mouseY = event.mouseButton.y;
                 int X = mouseX / 100;
                 int Y = mouseY / 100;
-                std::cout<<"Click hear"<<X <<" x  is "<< Y << " y is "<<std::endl;
                 if (selectedPiece == nullptr) {
-                    std::cout<<"yes"<<std::endl;
                     selectedPiece = board.getPieceAt(X,Y);
-                    if (selectedPiece && selectedPiece->getIsWhite() != isWhiteTurn) {
+                    if (selectedPiece && selectedPiece->getIsWhite() == isWhiteTurn) {
                         possibleMoves = selectedPiece->getPossibleMoves(board);
-                        std::cout<<possibleMoves.size()<<std::endl;
+                    } else {
+                        selectedPiece = nullptr;
                     }
                 } else {
-                    std::cout<<"no"<<std::endl;
                     if (selectedPiece->getX() == X &&  selectedPiece->getY() == Y) {
                         selectedPiece = nullptr;
                     } else {
                         for (auto & move : possibleMoves) {
                             if (move.endX == X && move.endY == Y) {
                                 move.execute(board);
+                                selectedPiece->doFirstMove();
                                 isWhiteTurn = !isWhiteTurn;
                                 selectedPiece = nullptr;
                                 break;
                             }
                         }
                     }
-                    possibleMoves.clear();
+                    if (selectedPiece == nullptr) {
+                        possibleMoves.clear();
+                    }
                 }
             }
         }
@@ -78,11 +79,9 @@ void Game::render()
 {
     window.clear(sf::Color::White);
 
+    board.draw(window);
     for (auto move : possibleMoves) {
         move.draw(window);
     }
-
-
-    board.draw(window);
     window.display();
 }

@@ -28,5 +28,7 @@ class Piece {
         virtual bool isKing(bool isWhite);
         virtual bool isSwappable(bool isWhite);
         sf::Vector2i getPosition();
+        virtual bool isPawn();
+        virtual void doFirstMove();
 };
 #endif

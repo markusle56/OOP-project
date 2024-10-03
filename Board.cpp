@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 Board::Board()
 {   
@@ -107,7 +108,7 @@ void Board::swap(Piece *piece) {
     std::vector<sf::Vector2i> swappablePiece;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (board[i][j] && board[i][j]->isSwappable(piece->getIsWhite())) {
+            if (board[i][j] && board[i][j]->isSwappable(piece->getIsWhite()) && board[i][j] != piece) {
                 swappablePiece.push_back(board[i][j]->getPosition());
             }
         }
@@ -116,11 +117,10 @@ void Board::swap(Piece *piece) {
         return;
     }
     srand(time(0));
-    int randNum = rand() / swappablePiece.size();
+    int randNum = rand() % swappablePiece.size();
     sf::Vector2i swappedPiece = swappablePiece[randNum];
     board[piece->getX()][piece->getY()] = board[swappedPiece.x][swappedPiece.y];
     board[piece->getX()][piece->getY()]->setPosition(piece->getX(),piece->getY());
-    
     board[swappedPiece.x][swappedPiece.y] = piece;
     board[swappedPiece.x][swappedPiece.y]->setPosition(swappedPiece.x, swappedPiece.y);
 

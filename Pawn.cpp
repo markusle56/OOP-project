@@ -52,8 +52,8 @@ std::vector<Move> Pawn::getPossibleMoves(Board& board) {
     if (board.getPieceAt(x, newY) == nullptr) {
         moves.emplace_back(x,y,x,newY,nullptr);
         std::cout<<"run"<<std::endl;
-        if (firstMove && board.getPieceAt(x, newY+1) == nullptr) {
-            moves.emplace_back(x,y,x,newY+1,nullptr);
+        if (firstMove && board.getPieceAt(x, newY + direction) == nullptr) {
+            moves.emplace_back(x,y,x,newY + direction,nullptr);
         }
     }
 
@@ -71,4 +71,11 @@ bool Pawn::isSwappable(bool isWhite) {
         return true;
     }
     return false;
+}
+
+bool Pawn::isPawn() {return true;}
+
+void Pawn::doFirstMove() {
+    firstMove = false;
+    return;
 }
