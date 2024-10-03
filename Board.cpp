@@ -53,8 +53,8 @@ void Board::setupBoard() {
             // need to covert
     }
     // board[0][3] = new Queen(false,0,3);
-    // board[0][4] = new King(false,0,4);
-    // board[7][3] = new King(true, 7,3);
+     board[0][4] = new King(false,4,0);
+     board[7][3] = new King(true, 3,7);
     // board[7][4] = new Queen(true, 7,4);    
 }
 
