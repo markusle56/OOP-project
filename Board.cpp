@@ -48,8 +48,8 @@ void Board::setupBoard() {
             // board[temp[i]][7] = new Brook(i,temp[i],7);
             // board[temp[i]][1] = new Knight(i,temp[i],1);
             // board[temp[i]][6] = new Knight(i,temp[i],6);
-            // board[temp[i]][2] = new Bishop(i,temp[i],2);
-            // board[temp[i]][5] = new Bishop(i,temp[i],5);
+            board[2][temp[i]] = new Bishop(i,2,temp[i]);
+            board[5][temp[i]] = new Bishop(i,5,temp[i]);
             // need to covert
     }
     // board[0][3] = new Queen(false,0,3);
