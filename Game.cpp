@@ -50,7 +50,6 @@ void Game::handleInput()
                         for (auto & move : possibleMoves) {
                             if (move.endX == X && move.endY == Y) {
                                 move.execute(board);
-                                selectedPiece->doFirstMove();
                                 isWhiteTurn = !isWhiteTurn;
                                 selectedPiece = nullptr;
                                 break;

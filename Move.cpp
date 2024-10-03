@@ -31,6 +31,11 @@ bool Move::isTargeted(Piece *piece) {
 void Move::draw(sf::RenderWindow& window) {
     sf::RectangleShape highlightedSquare(sf::Vector2f(100, 100));
     highlightedSquare.setPosition(endX * 100, endY * 100);
-    highlightedSquare.setFillColor(sf::Color(255, 255, 51, 128));
+    if (captured_piece == nullptr) {
+        highlightedSquare.setFillColor(sf::Color(255,255,51 , 100));
+    } else {
+        highlightedSquare.setFillColor(sf::Color(194,24,7 , 100));
+    }
+
     window.draw(highlightedSquare); 
 }
