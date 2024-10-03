@@ -5,6 +5,7 @@
 #include "Move.h"
 #include "Piece.h"
 #include "Pawn.h"
+#include "King.h"
 #include <vector>
 #include <cstdlib> 
 #include <ctime>   

@@ -58,7 +58,8 @@ std::vector<Move> Pawn::getPossibleMoves(Board& board) {
 
     if (board.getPieceAt(x+1,newY) && board.getPieceAt(x+1, newY)->getIsWhite() != isWhite) {
         moves.emplace_back(x,y,x+1,newY,board.getPieceAt(x+1, newY));
-    } else if (board.getPieceAt(x-1,newY) && board.getPieceAt(x-1, newY)->getIsWhite() != isWhite) {
+    } 
+    if (board.getPieceAt(x-1,newY) && board.getPieceAt(x-1, newY)->getIsWhite() != isWhite) {
         moves.emplace_back(x,y,x-1,newY,board.getPieceAt(x-1, newY));
     }
 
