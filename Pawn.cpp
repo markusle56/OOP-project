@@ -51,8 +51,8 @@ std::vector<Move> Pawn::getPossibleMoves(Board& board) {
     int newY = y + direction;
     if (board.getPieceAt(x, newY) == nullptr) {
         moves.emplace_back(x,y,x,newY,nullptr);
-        std::cout<<"run"<<std::endl;
-        if (firstMove && board.getPieceAt(x, newY + direction) == nullptr) {
+        if (firstMove == true && board.getPieceAt(x, newY + direction) == nullptr) {
+            std::cout<<"run first move"<<std::endl;
             moves.emplace_back(x,y,x,newY + direction,nullptr);
         }
     }
@@ -77,5 +77,8 @@ bool Pawn::isPawn() {return true;}
 
 void Pawn::doFirstMove() {
     firstMove = false;
+    if (!firstMove) {
+        std::cout<<"first move turn into false"<<std::endl;
+    }
     return;
 }

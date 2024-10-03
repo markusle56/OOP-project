@@ -69,8 +69,11 @@ void Board::movePiece(const Move& move) {
         board[move.endX][move.endY] = piece;
         board[move.startX][move.startY] = nullptr;
         piece->setPosition(move.endX, move.endY);
+        piece->doFirstMove();
         move_history.push_back(move);
-        this->swap(piece);
+        if (move.captured_piece != nullptr) {
+            this->swap(piece);
+        }
 
     }
     return;
