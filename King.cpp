@@ -31,7 +31,6 @@ std::vector<Move> King::getPossibleMoves(Board& board) {
 
             if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
                 Piece* targetedPiece = board.getPieceAt(newX, newY);
-                std::cout<<"test";
                 if (targetedPiece == nullptr) {
                     moves.emplace_back(x, y, newX, newY, nullptr);
                 } else if (targetedPiece->getIsWhite() != isWhite) {
