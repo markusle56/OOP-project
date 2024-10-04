@@ -52,10 +52,10 @@ void Board::setupBoard() {
             board[5][temp[i]] = new Bishop(i,5,temp[i]);
             // need to covert
     }
-    // board[0][3] = new Queen(false,0,3);
-     board[4][0] = new King(false,4,0);
-     board[3][7] = new King(true, 3,7);
-    // board[7][4] = new Queen(true, 7,4);    
+    board[3][0] = new Queen(false,3,0);
+    board[4][0] = new King(false,4,0);
+    board[3][7] = new King(true, 3,7);
+    board[4][7] = new Queen(true,4,7);    
 }
 
 Piece* Board::getPieceAt(int x, int y) {
@@ -111,8 +111,14 @@ void Board::swap(Piece *piece) {
     std::vector<sf::Vector2i> swappablePiece;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (board[i][j] && board[i][j]->isSwappable(piece->getIsWhite()) && board[i][j] != piece) {
-                swappablePiece.push_back(board[i][j]->getPosition());
+            Piece* currentPiece = board[i][j];
+            if (currentPiece && currentPiece->isSwappable(piece->getIsWhite()) && currentPiece != piece) {
+                if (!currentPiece->isKing(piece->getIsWhite()) && !currentPiece->isQueen(piece->getIsWhite())){
+                    std::cout << "Adding piece at " << i << ", " << j << " to swappable list." << std::endl;
+                    swappablePiece.push_back(currentPiece->getPosition());
+                } else {
+                    std::cout << "Skipping King or Queen at " << i << ", " << j << std::endl;
+                }
             }
         }
     }

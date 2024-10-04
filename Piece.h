@@ -26,6 +26,7 @@ class Piece {
         int getY();
         bool getIsWhite();
         virtual bool isKing(bool isWhite);
+        virtual bool isQueen(bool isWhite);
         virtual bool isSwappable(bool isWhite);
         sf::Vector2i getPosition();
         virtual bool isPawn();

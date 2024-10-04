@@ -11,6 +11,7 @@ class King : public Piece {
         std::vector<Move> getPossibleMoves(Board& board);
         void draw(sf::RenderWindow& window);
         bool isKing();
+        bool isSwappable(bool isWhite);
 };
 
 #endif

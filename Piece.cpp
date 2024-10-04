@@ -31,6 +31,8 @@ std::vector<Move> Piece::getPossibleMoves(Board& board) {
 
 bool Piece::isKing(bool isWhite) {return false;}
 
+bool Piece::isQueen(bool isWhite) {return false;}
+
 bool Piece::isSwappable(bool isWhite) {
     return false;
 }
