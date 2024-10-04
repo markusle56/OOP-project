@@ -10,7 +10,6 @@ class Queen : public Bishop {
         void draw(sf::RenderWindow &window);
         virtual std::vector<Move> getPossibleMoves(Board& board);
         bool isQueen();
-        bool isKing();
         bool isSwappable(bool isWhite);
 
 };
