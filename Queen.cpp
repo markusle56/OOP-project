@@ -92,7 +92,6 @@ std::vector<Move> Queen::getPossibleMoves(Board& board) {
 
 bool Queen::isQueen() {return true;}
 
-bool Queen::isKing() {return false;}
 
 bool Queen::isSwappable(bool isWhite) {return false;}
 
