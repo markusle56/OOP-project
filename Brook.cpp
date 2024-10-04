@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "iostream"
 
-Brook::Brook(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true) {
+Brook::Brook(bool isWhite, int x, int y): Piece(isWhite, x,y), castle(true), firstMove(true) {
     if(isWhite) {
         textureFilePath = "IMG/Brook_W.png";
     } else {
