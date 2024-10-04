@@ -42,6 +42,5 @@ std::vector<Move> King::getPossibleMoves(Board& board) {
     return moves;    
 }
 
-bool King::isKing() {return true;}
 
 bool King::isSwappable(bool isWhite) {return false;}

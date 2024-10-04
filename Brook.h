@@ -11,7 +11,6 @@ class Brook: public Piece {
         Brook(bool isWhile, int x, int y);
         void draw(sf::RenderWindow &window);
         virtual std::vector<Move> getPossibleMoves(Board& board);
-        bool isBrook();
         bool isSwappable(bool isWhite);
 };
 #endif

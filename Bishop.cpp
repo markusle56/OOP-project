@@ -99,8 +99,6 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
     return moves;
 }
 
-bool Bishop::isBishop() {return true;}
-
 bool Bishop::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {
         return true;

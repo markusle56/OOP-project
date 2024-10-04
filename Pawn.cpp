@@ -3,7 +3,8 @@
 #include "iostream"
 
 
-Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true) {
+Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true){
+    name = "Pawn";
     if(isWhite) {
         textureFilePath = "IMG/Pawn_W.png";
     } else {
@@ -74,7 +75,6 @@ bool Pawn::isSwappable(bool isWhite) {
     return false;
 }
 
-bool Pawn::isPawn() {return true;}
 
 void Pawn::doFirstMove() {
     firstMove = false;

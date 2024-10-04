@@ -87,11 +87,11 @@ bool Board::isCheck(bool isWhite) {
     for (int i = 0; i < 8; i++) { 
         for (int j = 0; j < 8; j++) {
             piece = board[i][j];
-            if (piece && piece->getIsWhite() == isWhite) {
+            if (piece && piece->getIsWhite() != isWhite) {
                 std::vector<Move> pieceMoves = piece->getPossibleMoves(*this);
                 possibleMoves.insert(possibleMoves.end(), pieceMoves.begin(), pieceMoves.end());
             }
-            if (piece && piece->isKing(!isWhite)) {
+            if (piece && piece->getName() == "King") {
                 king = piece;
             }
         }

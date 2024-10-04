@@ -14,7 +14,6 @@ class Pawn : public Piece {
         void draw(sf::RenderWindow& window);
         bool canPromote();
         bool isSwappable(bool isWhite);
-        bool isPawn();
         void doFirstMove();
 
 };

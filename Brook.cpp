@@ -91,7 +91,6 @@ std::vector<Move> Brook::getPossibleMoves(Board& board) {
     return moves;
 }
 
-bool Brook::isBrook() {return true;}
 
 bool Brook::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {

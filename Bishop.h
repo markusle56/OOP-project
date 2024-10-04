@@ -8,7 +8,6 @@ class Bishop: public Piece {
         Bishop(bool isWhile, int x, int y);
         void draw(sf::RenderWindow &window);
         virtual std::vector<Move> getPossibleMoves(Board& board);
-        bool isBishop();
         bool isSwappable(bool isWhite);
 };
 #endif
