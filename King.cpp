@@ -3,6 +3,7 @@
 #include "iostream"
 
 King::King(bool isWhite, int x, int y): Piece(isWhite, x, y), castle(true), firstMove(true) {
+    name = "King";
     if(isWhite) {
         textureFilePath = "IMG/King_W.png";
     } else {

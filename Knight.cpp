@@ -3,6 +3,7 @@
 #include "iostream"
 
 Knight::Knight(bool isWhite, int x, int y) : Piece(isWhite, x, y) {
+    name = "Knight";
     if(isWhite) {
         textureFilePath = "IMG/Knight_W.png";
     } else {
@@ -40,11 +41,6 @@ std::vector<Move> Knight::getPossibleMoves(Board& board) {
     }
     return moves;
 }
-
-
-
-
-bool Knight::isKnight() {return true;}
 
 bool Knight::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {

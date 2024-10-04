@@ -3,6 +3,7 @@
 #include "iostream"
 
 Bishop::Bishop(bool isWhite, int x, int y) : Piece(isWhite, x, y) {
+    name = "Bishop";
     if(isWhite) {
         textureFilePath = "IMG/Bishop_W.png";
     } else {

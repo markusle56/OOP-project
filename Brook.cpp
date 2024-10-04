@@ -3,6 +3,7 @@
 #include "iostream"
 
 Brook::Brook(bool isWhite, int x, int y): Piece(isWhite, x,y), castle(true), firstMove(true) {
+    name = "Brook";
     if(isWhite) {
         textureFilePath = "IMG/Brook_W.png";
     } else {

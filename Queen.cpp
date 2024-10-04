@@ -3,6 +3,7 @@
 #include "iostream"
 
 Queen::Queen(bool isWhite, int x, int y) : Bishop(isWhite, x, y) {
+    name = "Queen";
     if(isWhite) {
         textureFilePath = "IMG/Queen_W.png";
     } else {
