@@ -29,9 +29,6 @@ std::vector<Move> Piece::getPossibleMoves(Board& board) {
     std::vector<Move> pieces;
     return pieces;}
 
-bool Piece::isKing(bool isWhite) {return false;}
-
-bool Piece::isQueen(bool isWhite) {return false;}
 
 bool Piece::isSwappable(bool isWhite) {
     return false;
@@ -43,3 +40,5 @@ sf::Vector2i Piece::getPosition() {return sf::Vector2i(x,y);}
 bool Piece::isPawn() {return false;}
 
 void Piece::doFirstMove() {return;}
+
+std::string Piece::getName() {return name;}

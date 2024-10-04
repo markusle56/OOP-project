@@ -12,6 +12,7 @@ class Piece {
     protected:
         int x; 
         int y;
+        std::string name;
         bool isWhite;
         sf::Texture texture;
         sf::Sprite sprite;
@@ -24,9 +25,8 @@ class Piece {
         virtual std::vector<Move> getPossibleMoves(Board& board);
         int getX();
         int getY();
+        virtual std::string getName();
         bool getIsWhite();
-        virtual bool isKing(bool isWhite);
-        virtual bool isQueen(bool isWhite);
         virtual bool isSwappable(bool isWhite);
         sf::Vector2i getPosition();
         virtual bool isPawn();

@@ -67,7 +67,10 @@ void Game::handleInput()
 
 
 void Game::update()
-{
+{   
+    if (board.isCheck(isWhiteTurn)){
+        std::cout<<"CHECK CHECK CHECK "<<std::endl;
+    }
 
     if(gameOver) {
         return;
