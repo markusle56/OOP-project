@@ -78,8 +78,6 @@ bool Pawn::isPawn() {return true;}
 
 void Pawn::doFirstMove() {
     firstMove = false;
-    if (!firstMove) {
-        std::cout<<"first move turn into false"<<std::endl;
-    }
+    if (!firstMove) {}
     return;
 }

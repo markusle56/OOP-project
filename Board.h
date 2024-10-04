@@ -7,6 +7,7 @@
 #include "Pawn.h"
 #include "King.h"
 #include "Bishop.h"
+#include "Brook.h"
 #include <vector>
 #include <cstdlib> 
 #include <ctime>   

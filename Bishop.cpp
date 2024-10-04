@@ -35,6 +35,7 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
                 moves.emplace_back(x, y, newX, newY, nullptr);
             } else if (targetedPiece->getIsWhite() != isWhite) {
                 moves.emplace_back(x, y, newX, newY, targetedPiece);
+                break;
             } else {
                 break;
             }
@@ -52,6 +53,7 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
                 moves.emplace_back(x, y, newX, newY, nullptr);
             } else if (targetedPiece->getIsWhite() != isWhite) {
                 moves.emplace_back(x, y, newX, newY, targetedPiece);
+                break;
             } else {
                 break;
             }
@@ -69,6 +71,7 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
                 moves.emplace_back(x, y, newX, newY, nullptr);
             } else if (targetedPiece->getIsWhite() != isWhite) {
                 moves.emplace_back(x, y, newX, newY, targetedPiece);
+                break;
             } else {
                 break;
             }
@@ -86,6 +89,7 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
                 moves.emplace_back(x, y, newX, newY, nullptr);
             } else if (targetedPiece->getIsWhite() != isWhite) {
                 moves.emplace_back(x, y, newX, newY, targetedPiece);
+                break;
             } else {
                 break;
             }
@@ -97,7 +101,7 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
 
 bool Bishop::isBishop() {return true;}
 
-bool Bishop::isSwappable(bool isWhte) {
+bool Bishop::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {
         return true;
     }

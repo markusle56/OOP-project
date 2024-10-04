@@ -44,8 +44,8 @@ void Board::setupBoard() {
     }
     int temp[] = {0,7};
     for (int i = 0; i < 2; i++) {
-            // board[temp[i]][0] = new Brook(i, temp[i],0);
-            // board[temp[i]][7] = new Brook(i,temp[i],7);
+            board[0][temp[i]] = new Brook(i, 0, temp[i]);
+            board[7][temp[i]] = new Brook(i, 7, temp[i]);
             // board[temp[i]][1] = new Knight(i,temp[i],1);
             // board[temp[i]][6] = new Knight(i,temp[i],6);
             board[2][temp[i]] = new Bishop(i,2,temp[i]);
