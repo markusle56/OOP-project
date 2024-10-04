@@ -10,7 +10,7 @@ Queen::Queen(bool isWhite, int x, int y) : Bishop(isWhite, x, y) {
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the Queen image"<<std::endl;
     }
     sprite.setTexture(texture);
 }
@@ -91,6 +91,7 @@ std::vector<Move> Queen::getPossibleMoves(Board& board) {
 }
 
 bool Queen::isQueen() {return true;}
+
 
 bool Queen::isSwappable(bool isWhite) {return false;}
 

@@ -12,7 +12,7 @@ Board::Board()
     // Load board texture
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the board"<<std::endl;
     }
     sprite.setTexture(texture);
 }
@@ -71,7 +71,7 @@ void Board::movePiece(const Move& move) {
         piece->setPosition(move.endX, move.endY);
         piece->doFirstMove();
         move_history.push_back(move);
-        if (move.captured_piece != nullptr) {
+        if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece);
         }
 
@@ -113,12 +113,7 @@ void Board::swap(Piece *piece) {
         for (int j = 0; j < 8; j++) {
             Piece* currentPiece = board[i][j];
             if (currentPiece && currentPiece->isSwappable(piece->getIsWhite()) && currentPiece != piece) {
-                if (!currentPiece->isKing(piece->getIsWhite()) && !currentPiece->isQueen(piece->getIsWhite())){
-                    std::cout << "Adding piece at " << i << ", " << j << " to swappable list." << std::endl;
-                    swappablePiece.push_back(currentPiece->getPosition());
-                } else {
-                    std::cout << "Skipping King or Queen at " << i << ", " << j << std::endl;
-                }
+                swappablePiece.push_back(currentPiece->getPosition());
             }
         }
     }
