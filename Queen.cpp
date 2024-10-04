@@ -10,7 +10,7 @@ Queen::Queen(bool isWhite, int x, int y) : Bishop(isWhite, x, y) {
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the Queen image"<<std::endl;
     }
     sprite.setTexture(texture);
 }

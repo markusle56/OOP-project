@@ -12,7 +12,7 @@ Board::Board()
     // Load board texture
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the board"<<std::endl;
     }
     sprite.setTexture(texture);
 }

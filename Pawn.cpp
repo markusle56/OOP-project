@@ -11,7 +11,7 @@ Pawn::Pawn(bool isWhite, int x, int y): Piece(isWhite, x,y), firstMove(true) {
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the Pawn image"<<std::endl;
     }
     sprite.setTexture(texture);
 }
