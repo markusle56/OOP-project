@@ -5,6 +5,7 @@
 
 class King : public Piece {
     private: 
+        bool firstMove;
         bool castle;
     public:
         King(bool isWhite, int x, int y);

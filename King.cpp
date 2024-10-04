@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "iostream"
 
-King::King(bool isWhite, int x, int y): Piece(isWhite, x, y), castle(false) {
+King::King(bool isWhite, int x, int y): Piece(isWhite, x, y), castle(true), firstMove(true) {
     if(isWhite) {
         textureFilePath = "IMG/King_W.png";
     } else {
