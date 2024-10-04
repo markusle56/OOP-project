@@ -9,6 +9,7 @@
 #include "Bishop.h"
 #include "Brook.h"
 #include "Queen.h"
+#include "Knight.h"
 #include <vector>
 #include <cstdlib> 
 #include <ctime>   
