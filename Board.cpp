@@ -26,7 +26,7 @@ Board::~Board()
                 delete board[i][j];
 }
 
-void Board::draw(sf::RenderWindow& window)
+void Board::drawBoard(sf::RenderWindow& window)
 {   
     sprite.setScale(0.74074,0.74074);
     window.draw(sprite);
@@ -37,6 +37,15 @@ void Board::draw(sf::RenderWindow& window)
                board[i][j]->draw(window);
 }
 
+void Board::drawPieces(sf::RenderWindow& window) {
+    for(int i = 0; i < 8; ++i) {
+        for(int j = 0; j < 8; ++j) {
+            if(board[i][j] != nullptr) {
+               board[i][j]->draw(window);
+            }
+        }
+    }
+}
 void Board::setupBoard() {
     for (int i = 0; i < 8; i++) {
         board[i][1] = new Pawn(false, i, 1);
@@ -79,7 +88,7 @@ void Board::movePiece(const Move& move) {
     return;
 }
 
-bool Board::isCheck(bool isWhite) {
+sf::Vector2i Board::isCheck(bool isWhite) {
 
     Piece * piece = nullptr;
     Piece * king = nullptr;
@@ -91,17 +100,20 @@ bool Board::isCheck(bool isWhite) {
                 std::vector<Move> pieceMoves = piece->getPossibleMoves(*this);
                 possibleMoves.insert(possibleMoves.end(), pieceMoves.begin(), pieceMoves.end());
             }
-            if (piece && piece->getName() == "King") {
+            if (piece && piece->getName() == "King" && piece->getIsWhite() == isWhite) {
                 king = piece;
             }
         }
     }
+    if (!king) {
+        return sf::Vector2i(-2,-2);
+    }
     for (auto move: possibleMoves) {
         if(move.isTargeted(king)) {
-            return true;
+            return sf::Vector2i(king->getX(), king->getY());
         }
     }
-    return false;
+    return sf::Vector2i(-1,-1);
 }
 
 void Board::swap(Piece *piece) {
@@ -130,4 +142,40 @@ void Board::swap(Piece *piece) {
 
     return; 
 
+}
+
+Piece* Board::canPromote() {
+    Piece * piece = nullptr; 
+    for (int i = 0 ; i < 8 ; i++) {
+        for (int j = 0; j < 8; j++) {
+            piece = board[i][j];
+            if (piece  && piece->getName() == "Pawn") {
+                if (piece->getY() == 0 && piece->getIsWhite()) {
+                    return piece;
+                } 
+                if (piece->getY() == 7 && piece->getIsWhite() == false) {
+                    return piece;
+                }
+            }
+        }
+    }
+    return nullptr;
+}
+
+bool Board::promote(Piece * piece, std::string intoPiece) {
+    if (intoPiece == "Queen" ) {
+        board[piece->getX()][piece->getY()] = new Queen(piece->getIsWhite(), piece->getX(), piece->getY());
+        delete piece;
+    } else if (intoPiece == "Rook") {
+        board[piece->getX()][piece->getY()] = new Brook(piece->getIsWhite(), piece->getX(), piece->getY());
+        delete piece;
+    } else if (intoPiece == "Knight") {
+        board[piece->getX()][piece->getY()] = new Knight(piece->getIsWhite(), piece->getX(), piece->getY());
+        delete piece;
+    } else if (intoPiece == "Bishop") {
+        board[piece->getX()][piece->getY()] = new Bishop(piece->getIsWhite(), piece->getX(), piece->getY());
+        delete piece;
+    }
+     
+    return false;
 }

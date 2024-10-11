@@ -17,6 +17,7 @@ class Piece {
         sf::Texture texture;
         sf::Sprite sprite;
         std::string textureFilePath;
+        bool isClicked; 
     public: 
         virtual void draw(sf::RenderWindow& window);
         Piece(bool isWhite,int x, int y);
@@ -31,5 +32,6 @@ class Piece {
         sf::Vector2i getPosition();
         virtual bool isPawn();
         virtual void doFirstMove();
+        void draw_background(sf::RenderWindow& window, std::string color);
 };
 #endif

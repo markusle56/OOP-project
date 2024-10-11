@@ -29,13 +29,13 @@ bool Move::isTargeted(Piece *piece) {
 }
 
 void Move::draw(sf::RenderWindow& window) {
-    sf::RectangleShape highlightedSquare(sf::Vector2f(100, 100));
-    highlightedSquare.setPosition(endX * 100, endY * 100);
+    sf::CircleShape highlightedCircle(15);
+    highlightedCircle.setPosition(endX * 100+35, endY * 100 + 35 );
     if (captured_piece == nullptr) {
-        highlightedSquare.setFillColor(sf::Color(255,255,51 , 100));
+        highlightedCircle.setFillColor(sf::Color(80,80,80 , 200));
     } else {
-        highlightedSquare.setFillColor(sf::Color(194,24,7 , 100));
+        highlightedCircle.setFillColor(sf::Color(194,24,7 , 130));
     }
 
-    window.draw(highlightedSquare); 
+    window.draw(highlightedCircle); 
 }

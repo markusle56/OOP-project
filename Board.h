@@ -26,11 +26,13 @@ class Board {
         Board();
         ~Board();
         void setupBoard();
-        void draw(sf::RenderWindow& window);
-        bool isCheck(bool isWhite);
+        void drawBoard(sf::RenderWindow& window);
+        sf::Vector2i isCheck(bool isWhite);
         Piece* getPieceAt(int x, int y);
         void movePiece(const Move& move);
         void swap(Piece * piece);
-
+        void drawPieces(sf::RenderWindow &window);
+        Piece * canPromote();
+        bool promote(Piece * piece, std::string intoPiece);
 };
 #endif

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(): window(sf::VideoMode(800,800), "Maj Chess"), isWhiteTurn(true), gameOver(false), selectedPiece(nullptr){
+Game::Game(): window(sf::VideoMode(800,800), "Magic Chess"), isWhiteTurn(true), gameOver(false), selectedPiece(nullptr), subWindowOpen(false){
 };
 
 Game::~Game() {}
@@ -68,11 +68,14 @@ void Game::handleInput()
 
 void Game::update()
 {   
-    if (board.isCheck(isWhiteTurn)){
-        std::cout<<"CHECK CHECK CHECK "<<std::endl;
+    if (board.canPromote() && !subWindowOpen) {
+        subWindow.create(sf::VideoMode(600,200), "Promote");
+        subWindowOpen = true;
+        selectedPiece = board.canPromote();
+        
     }
-
-    if(gameOver) {
+    if(board.isCheck(isWhiteTurn) == sf::Vector2i(-2,-2)) {
+        window.close();
         return;
     }
 }
@@ -81,9 +84,116 @@ void Game::render()
 {
     window.clear(sf::Color::White);
 
-    board.draw(window);
+    board.drawBoard(window);
+
+    sf::Vector2i kingPosition = board.isCheck(isWhiteTurn);
+    if (kingPosition.x >= 0 ){
+        Piece * king = board.getPieceAt(kingPosition.x,kingPosition.y);
+        king->draw_background(window, "red");
+    }
+    if(selectedPiece) {
+        selectedPiece->draw_background(window, "yellow");
+    }
+    board.drawPieces(window);
     for (auto move : possibleMoves) {
         move.draw(window);
-    }
+    } 
     window.display();
+
+    if (subWindowOpen) {drawPromote(subWindow);}
+}
+
+void Game::drawPromote(sf::RenderWindow & subWindow) {
+    // Load the textures (every time the function is called, but only when needed)
+    sf::Texture queenTexture, rookTexture, bishopTexture, knightTexture, backgroundTexture;
+    if (!backgroundTexture.loadFromFile("IMG/promote_page.png")) {
+        std::cout<<"Error loading background!"<<std::endl;
+        return;
+    }
+    if (selectedPiece->getIsWhite()) {
+        if (!queenTexture.loadFromFile("IMG/Queen_W.png") ||
+            !rookTexture.loadFromFile("IMG/Brook_W.png") ||
+            !bishopTexture.loadFromFile("IMG/Bishop_W.png") ||
+            !knightTexture.loadFromFile("IMG/Knight_W.png")) {
+            std::cout << "Error loading promotion textures!" << std::endl;
+            return;
+        } 
+    } else {
+        if (!queenTexture.loadFromFile("IMG/Queen_B.png") ||
+            !rookTexture.loadFromFile("IMG/Brook_B.png") ||
+            !bishopTexture.loadFromFile("IMG/Bishop_B.png") ||
+            !knightTexture.loadFromFile("IMG/Knight_B.png")) {
+            std::cout << "Error loading promotion textures!" << std::endl;
+            return;
+        } 
+    }
+
+    // Create sprites using the textures
+    sf::Sprite queen(queenTexture);
+    sf::Sprite rook(rookTexture);
+    sf::Sprite bishop(bishopTexture);
+    sf::Sprite knight(knightTexture);
+    sf::Sprite background(backgroundTexture);
+
+    // Scale and position the sprites
+    queen.setScale(0.15, 0.15);
+    rook.setScale(0.15, 0.15);
+    bishop.setScale(0.15, 0.15);
+    knight.setScale(0.15, 0.15);
+
+    queen.setPosition(50, 70);
+    rook.setPosition(190, 70);
+    bishop.setPosition(330, 70);
+    knight.setPosition(470, 70);
+
+    // Event loop for the subwindow
+    sf::Event event;
+    while (subWindow.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+            subWindow.close();
+            subWindowOpen = false;
+            return;
+        }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(subWindow);
+            if (!selectedPiece) {
+                std::cout<<"ERROR DID NOT SEE PAWN TO PROMOTED"<<std::endl;
+            }
+            // Check if user clicked on one of the pieces
+            if (queen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                board.promote(selectedPiece, "Queen");
+                selectedPiece = nullptr;
+                subWindow.close();
+                subWindowOpen = false;
+                return;  // End the promotion window
+            } else if (rook.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                board.promote(selectedPiece, "Rook");
+                selectedPiece = nullptr;                
+                subWindow.close();
+                subWindowOpen = false;
+                return;
+            } else if (bishop.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                board.promote(selectedPiece, "Bishop");
+                selectedPiece = nullptr;
+                subWindow.close();
+                subWindowOpen = false;
+                return;
+            } else if (knight.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+                board.promote(selectedPiece, "Knight");
+                selectedPiece = nullptr;
+                subWindow.close();
+                subWindowOpen = false;
+                return;
+            }
+        }
+    }
+
+    // Draw the subwindow contents (sprites)
+    subWindow.clear();
+    subWindow.draw(background);
+    subWindow.draw(queen);
+    subWindow.draw(rook);
+    subWindow.draw(bishop);
+    subWindow.draw(knight);
+    subWindow.display();
 }

@@ -42,3 +42,14 @@ bool Piece::isPawn() {return false;}
 void Piece::doFirstMove() {return;}
 
 std::string Piece::getName() {return name;}
+
+void Piece::draw_background(sf::RenderWindow& window, std::string color) {
+    sf::RectangleShape highlightedSquare(sf::Vector2f(100, 100));
+    highlightedSquare.setPosition(x * 100, y * 100);
+    if (color == "yellow") {
+        highlightedSquare.setFillColor(sf::Color(255,255,51 , 100));
+    } else if (color == "red") {
+        highlightedSquare.setFillColor(sf::Color(194,24,7 , 255));
+    }
+    window.draw(highlightedSquare); 
+}

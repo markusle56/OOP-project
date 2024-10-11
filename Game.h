@@ -14,6 +14,8 @@ class Game {
         sf::RenderWindow window;
         std::vector<Move> possibleMoves;
         Piece * selectedPiece;
+        sf::RenderWindow subWindow;
+        bool subWindowOpen;
     public:
         Game();
         ~Game();
@@ -23,6 +25,8 @@ class Game {
         void render();
         void handleInput();
         void update();
+        void drawPromote(sf::RenderWindow & subWindow);
+
 };
 
 #endif

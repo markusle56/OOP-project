@@ -23,23 +23,6 @@ void Pawn::draw(sf::RenderWindow& window) {
     window.draw(sprite);
 }
 
-bool Pawn::canPromote() {
-    if (isWhite) {
-        if (x == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        if (x == 7) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-
 std::vector<Move> Pawn::getPossibleMoves(Board& board) {
     std::vector<Move> moves;
 
@@ -53,7 +36,6 @@ std::vector<Move> Pawn::getPossibleMoves(Board& board) {
     if (board.getPieceAt(x, newY) == nullptr) {
         moves.emplace_back(x,y,x,newY,nullptr);
         if (firstMove == true && board.getPieceAt(x, newY + direction) == nullptr) {
-            std::cout<<"run first move"<<std::endl;
             moves.emplace_back(x,y,x,newY + direction,nullptr);
         }
     }
