@@ -14,7 +14,6 @@ class Move {
         void draw(sf::RenderWindow &window); // Draws the move highlight on the window
         int startX, startY; // Starting position of the move
         int endX, endY; // Ending position of the move
-        Piece* captured_piece; // Pointer to the captured piece, if any
     
 };
 
