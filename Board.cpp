@@ -98,29 +98,22 @@ void Board::movePiece(const Move& move) {
             if (piece->getX() > move.startX) { // King-side castle
                 Piece* rook = board[7][move.startY]; // Get king-side rook
                 if (rook && rook->getName() == "Rook") {
-<<<<<<< HEAD
                     // Move rook next to king
                     board[5][move.startY] = rook; 
-=======
-                    board[5][move.startY] = rook; // Move rook next to king
->>>>>>> eeb88f48603a1f22cf93d0bf4bd2d8cd3a0cc019
+                    board[5][move.startY] = rook; 
                     board[7][move.startY] = nullptr;
                     rook->setPosition(5, move.startY);
                 }
             } else if (piece->getX() < move.startX) { // Queen-side castle
                 Piece* rook = board[0][move.startY]; // Get queen-side rook
                 if (rook && rook->getName() == "Rook") {
-<<<<<<< HEAD
                     // Move rook next to king
                     board[3][move.startY] = rook; 
-=======
-                    board[3][move.startY] = rook; // Move rook next to king
->>>>>>> eeb88f48603a1f22cf93d0bf4bd2d8cd3a0cc019
                     board[0][move.startY] = nullptr;
                     rook->setPosition(3, move.startY);
                 }
             }
-            display(0,0,2);
+            display(0, 0, 2);
         }
         // Handle piece swap after capture
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
@@ -140,7 +133,6 @@ sf::Vector2i Board::isCheck(bool isWhite) {
     for (int i = 0; i < 8; i++) { 
         for (int j = 0; j < 8; j++) {
             piece = board[i][j];
-
             // Collect possible moves for enemy pieces
             if (piece && piece->getIsWhite() != isWhite) {
                 std::vector<Move> pieceMoves = piece->getPossibleMoves(*this);
@@ -233,10 +225,7 @@ bool Board::promote(Piece* piece, std::string intoPiece) {
         delete piece;
     }
     return false; // Return false indicating the promotion was handled
-<<<<<<< HEAD
-=======
 }
-
 
 void Board::display(int x, int y, int code) {
     if (code == 1) {
@@ -252,6 +241,4 @@ void Board::display(int x, int y, int code) {
         std::string name = board[x][y]->getName();
         std::cout << " and swap into " << name << "." << std::endl;
     }
-
->>>>>>> eeb88f48603a1f22cf93d0bf4bd2d8cd3a0cc019
 }

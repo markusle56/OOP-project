@@ -18,11 +18,9 @@ class Game {
         sf::RenderWindow subWindow; // Promotion window
         bool subWindowOpen; // Is promotion window open
         int stage; // Game stage tracker
-    
     public:
         Game(); // Constructor
         ~Game(); // Destructor
-
         void init(); // Initialize game
         void run(); // Main game loop
         void render(); // Render objects
