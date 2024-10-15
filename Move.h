@@ -15,7 +15,6 @@ public:
     Piece* captured_piece;
 
     Move(int startX, int startY, int endX, int endY, Piece* captured);
-    bool isValid() const;
     void execute(Board& board);
     bool isTargeted(Piece * piece);
     void draw(sf::RenderWindow &window);
