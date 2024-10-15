@@ -93,6 +93,11 @@ void Board::movePiece(const Move& move) {
         piece->setPosition(move.endX, move.endY); // Update piece position
         piece->doFirstMove(); // Mark piece's first move
         move_history.push_back(move); // Add move to history
+        // Handle piece swap after capture
+        if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
+            this->swap(piece); // Swap if needed
+        }
+        display(move.endX, move.endY, 5);
         // Handle castling
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
             if (piece->getX() > move.startX) { // King-side castle
@@ -114,11 +119,6 @@ void Board::movePiece(const Move& move) {
             }
             display(0, 0, 2);
         }
-        // Handle piece swap after capture
-        if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
-            this->swap(piece); // Swap if needed
-        }
-        display(move.endX, move.endY, 5);
     }
     return;
 }
