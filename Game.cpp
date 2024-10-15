@@ -86,7 +86,7 @@ void Game::handleInput() {
 
 void Game::update() {   
     // Check if a piece can be promoted and the promotion window is not open
-    if (board.canPromote() && !subWindowOpen) {
+    if (board.canPromote() && !subWindowOpen && stage == 1) {
         subWindow.create(sf::VideoMode(600, 200), "Promote"); // Create promotion window
         subWindowOpen = true; // Mark promotion window as open
         selectedPiece = board.canPromote(); // Get the piece to be promoted
