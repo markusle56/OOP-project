@@ -63,8 +63,8 @@ void Board::setupBoard() {
     }
     board[3][0] = new Queen(false,3,0);
     board[4][0] = new King(false,4,0);
-    board[3][7] = new King(true, 3,7);
-    board[4][7] = new Queen(true,4,7);    
+    board[4][7] = new King(true, 4,7);
+    board[3][7] = new Queen(true,3,7);    
 }
 
 Piece* Board::getPieceAt(int x, int y) {
@@ -80,6 +80,24 @@ void Board::movePiece(const Move& move) {
         piece->setPosition(move.endX, move.endY);
         piece->doFirstMove();
         move_history.push_back(move);
+        if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
+            if (piece->getX() > move.startX) {
+                Piece* rook = board[7][move.startY]; 
+                if (rook && rook->getName() == "Brook") {
+                    board[5][move.startY] = rook;
+                    board[7][move.startY] = nullptr;
+                    rook->setPosition(5, move.startY);
+                }
+            }
+            else if (piece->getX() < move.startX) {
+                Piece* rook = board[0][move.startY]; 
+                if (rook && rook->getName() == "Brook") {
+                    board[3][move.startY] = rook;
+                    board[0][move.startY] = nullptr;
+                    rook->setPosition(3, move.startY);
+                }
+            }
+        }
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece);
         }

@@ -99,3 +99,13 @@ bool Brook::isSwappable(bool isWhite) {
     }
     return false;
 }
+
+bool Brook::getFirstMove() {
+    return firstMove;
+}
+
+void Brook::doFirstMove() {
+    firstMove = false;
+    if (!firstMove) {}
+    return;
+}

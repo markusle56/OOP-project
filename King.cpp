@@ -40,8 +40,64 @@ std::vector<Move> King::getPossibleMoves(Board& board) {
             }
         }
     }
-    return moves;    
+
+    if (canCastle(board)) {
+        if (castleKingSide(board)) {
+            moves.emplace_back(x, y, x+2, y, nullptr);
+        }
+        if (castleQueenSide(board)) {
+            moves.emplace_back(x, y, x-2, y, nullptr);
+        }
+    }
+    return moves;
 }
 
 
 bool King::isSwappable(bool isWhite) {return false;}
+
+void King::doFirstMove() {
+    firstMove = false;
+    if (!firstMove) {}
+    return;
+}
+
+bool King::canCastle(Board& board) {
+    if (!firstMove) {
+        return false;
+    }
+    return true;
+}
+
+bool King::castleKingSide(Board& board) {
+    if (!canCastle(board)) {
+        return false;
+    }
+
+    if (board.getPieceAt(x + 1, y) != nullptr || board.getPieceAt(x + 2, y) != nullptr) {
+        return false;
+    }
+
+    Piece* piece = board.getPieceAt(x + 3, y); 
+    Brook* rook = dynamic_cast<Brook*>(piece);
+    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Brook") {
+        return false;
+    }
+    return true;
+}
+
+bool King::castleQueenSide(Board& board) {
+    if (!canCastle(board)) {
+        return false;
+    }
+
+    if (board.getPieceAt(x - 1, y) != nullptr || board.getPieceAt(x - 2, y) != nullptr || board.getPieceAt(x - 3, y) != nullptr) {
+        return false;
+    }
+
+    Piece* piece = board.getPieceAt(x - 4, y); 
+    Brook* rook = dynamic_cast<Brook*>(piece);
+    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Brook") {
+        return false;
+    }
+    return true;
+}

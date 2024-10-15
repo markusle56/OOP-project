@@ -12,5 +12,7 @@ class Brook: public Piece {
         void draw(sf::RenderWindow &window);
         virtual std::vector<Move> getPossibleMoves(Board& board);
         bool isSwappable(bool isWhite);
+        bool getFirstMove();
+        void doFirstMove();
 };
 #endif

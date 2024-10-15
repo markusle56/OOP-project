@@ -25,30 +25,39 @@ void Pawn::draw(sf::RenderWindow& window) {
 
 std::vector<Move> Pawn::getPossibleMoves(Board& board) {
     std::vector<Move> moves;
-
-    int direction; 
-    if (isWhite) {
-        direction = -1;
-    } else {
-        direction = 1; 
-    }
+    
+    int direction = isWhite ? -1 : 1; // Determine direction based on color
     int newY = y + direction;
-    if (board.getPieceAt(x, newY) == nullptr) {
-        moves.emplace_back(x,y,x,newY,nullptr);
-        if (firstMove == true && board.getPieceAt(x, newY + direction) == nullptr) {
-            moves.emplace_back(x,y,x,newY + direction,nullptr);
-        }
-    }
 
-    if (x+1 <= 7 && board.getPieceAt(x+1,newY) && board.getPieceAt(x+1, newY)->getIsWhite() != isWhite) {
-        moves.emplace_back(x,y,x+1,newY,board.getPieceAt(x+1, newY));
-    } 
-    if (x-1 >= 0 && board.getPieceAt(x-1,newY) && board.getPieceAt(x-1, newY)->getIsWhite() != isWhite) {
-        moves.emplace_back(x,y,x-1,newY,board.getPieceAt(x-1, newY));
+    // Ensure newY is within bounds before accessing the board
+    if (newY >= 0 && newY <= 7) {
+        // Move forward by 1 square
+        if (board.getPieceAt(x, newY) == nullptr) {
+            moves.emplace_back(x, y, x, newY, nullptr);
+
+            // Move forward by 2 squares if it's the first move
+            if (firstMove == true && newY + direction >= 0 && newY + direction <= 7 
+                && board.getPieceAt(x, newY + direction) == nullptr) {
+                moves.emplace_back(x, y, x, newY + direction, nullptr);
+            }
+        }
+
+        // Diagonal capture to the right
+        if (x + 1 <= 7 && board.getPieceAt(x + 1, newY) && 
+            board.getPieceAt(x + 1, newY)->getIsWhite() != isWhite) {
+            moves.emplace_back(x, y, x + 1, newY, board.getPieceAt(x + 1, newY));
+        }
+
+        // Diagonal capture to the left
+        if (x - 1 >= 0 && board.getPieceAt(x - 1, newY) && 
+            board.getPieceAt(x - 1, newY)->getIsWhite() != isWhite) {
+            moves.emplace_back(x, y, x - 1, newY, board.getPieceAt(x - 1, newY));
+        }
     }
 
     return moves;
 }
+
 
 bool Pawn::isSwappable(bool isWhite) { 
     if (this->isWhite == isWhite) {
