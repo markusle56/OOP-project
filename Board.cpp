@@ -76,7 +76,7 @@ void Board::setupBoard() {
         board[3][temp[i]] = new Queen(i, 3, temp[i]); // Queen
         board[4][temp[i]] = new King(i, 4, temp[i]); // King
     }
-    display(0,0,1);
+    display(0, 0, 1);
 }
 
 Piece* Board::getPieceAt(int x, int y) {
