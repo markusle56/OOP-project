@@ -30,6 +30,7 @@ class Game {
         void update(); // Update game state
         void drawPromote(sf::RenderWindow & subWindow); // Draw promotion window
         void resetGame(); // Reset game state
+        void display(int x, int y); // Display the state of game
 };
 
 #endif

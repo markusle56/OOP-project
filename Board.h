@@ -35,6 +35,7 @@ class Board {
         void drawPieces(sf::RenderWindow& window); // Draw all the pieces on the board
         Piece* canPromote(); // Check if a pawn can be promoted
         bool promote(Piece* piece, std::string intoPiece); // Promote a pawn to a new piece
+        void display(int x, int y, int code);
 };
 
 #endif

@@ -10,6 +10,7 @@ Game::~Game() {}
 // Setup the board
 void Game::init() {
     board.setupBoard();
+    display(-1,-1);
 }
 
 // Main game loop
@@ -42,6 +43,7 @@ void Game::handleInput() {
                     int mouseY = event.mouseButton.y;
                     int X = mouseX / 100; // Convert mouse X coordinate to grid X
                     int Y = mouseY / 100; // Convert mouse Y coordinate to grid Y
+                    display(X,Y);
                     if (selectedPiece == nullptr) { // No piece selected
                         selectedPiece = board.getPieceAt(X, Y); // Select piece at clicked position
                         if (selectedPiece && selectedPiece->getIsWhite() == isWhiteTurn) {
@@ -73,8 +75,10 @@ void Game::handleInput() {
         } else if (stage == 2 || stage == 3) { 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Y) {
                 resetGame(); // Reset game if 'Y' is pressed
+                display(-3,-3);
             } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
                 window.close(); // Close game if 'N' is pressed
+                display(-4,-4);
             }
         }
     }
@@ -86,16 +90,18 @@ void Game::update() {
         subWindow.create(sf::VideoMode(600, 200), "Promote"); // Create promotion window
         subWindowOpen = true; // Mark promotion window as open
         selectedPiece = board.canPromote(); // Get the piece to be promoted
+        display(-5,-5);
     }
     
     // Check if the current player is in checkmate
-    if (board.isCheck(isWhiteTurn) == sf::Vector2i(-2, -2)) { // If checkmate
+    if (board.isCheck(isWhiteTurn) == sf::Vector2i(-2, -2) && !gameOver) { // If checkmate
         gameOver = true; // Mark game as over
         if (isWhiteTurn) {
             stage = 2; // Black wins
         } else {
             stage = 3; // White wins
         }
+        display(-2,-2);
         return; // Exit function to stop further updates
     }
 }
