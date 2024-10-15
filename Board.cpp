@@ -100,7 +100,6 @@ void Board::movePiece(const Move& move) {
                 if (rook && rook->getName() == "Rook") {
                     // Move rook next to king
                     board[5][move.startY] = rook; 
-                    board[5][move.startY] = rook; 
                     board[7][move.startY] = nullptr;
                     rook->setPosition(5, move.startY);
                 }
@@ -241,4 +240,5 @@ void Board::display(int x, int y, int code) {
         std::string name = board[x][y]->getName();
         std::cout << " and swap into " << name << "." << std::endl;
     }
+
 }
