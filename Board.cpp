@@ -75,6 +75,7 @@ void Board::setupBoard() {
         board[3][temp[i]] = new Queen(i, 3, temp[i]);  // Queen
         board[4][temp[i]] = new King(i, 4, temp[i]);   // King
     }
+    display(0,0,1);
 }
 
 
@@ -85,6 +86,8 @@ Piece* Board::getPieceAt(int x, int y) {
 void Board::movePiece(const Move& move) {
     Piece* piece = board[move.startX][move.startY]; // Get piece at start position
     if (piece) {
+        display(move.startX,move.startY, 3);
+        display(move.endX, move.endY, 4);
         board[move.endX][move.endY] = piece; // Move piece to end position
         board[move.startX][move.startY] = nullptr; // Clear start position
         piece->setPosition(move.endX, move.endY); // Update piece position
@@ -95,25 +98,27 @@ void Board::movePiece(const Move& move) {
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
             if (piece->getX() > move.startX) { // King-side castle
                 Piece* rook = board[7][move.startY]; // Get king-side rook
-                if (rook && rook->getName() == "Brook") {
+                if (rook && rook->getName() == "Rook") {
                     board[5][move.startY] = rook; // Move rook next to king
                     board[7][move.startY] = nullptr;
                     rook->setPosition(5, move.startY);
                 }
             } else if (piece->getX() < move.startX) { // Queen-side castle
                 Piece* rook = board[0][move.startY]; // Get queen-side rook
-                if (rook && rook->getName() == "Brook") {
+                if (rook && rook->getName() == "Rook") {
                     board[3][move.startY] = rook; // Move rook next to king
                     board[0][move.startY] = nullptr;
                     rook->setPosition(3, move.startY);
                 }
             }
+            display(0,0,2);
         }
 
         // Handle piece swap after capture
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece); // Swap if needed
         }
+        display(move.endX, move.endY, 5);
     }
     return;
 }
@@ -222,7 +227,7 @@ bool Board::promote(Piece* piece, std::string intoPiece) {
         board[piece->getX()][piece->getY()] = new Queen(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Queen
         delete piece; // Delete the old pawn
     } else if (intoPiece == "Rook") {
-        board[piece->getX()][piece->getY()] = new Brook(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Rook
+        board[piece->getX()][piece->getY()] = new Rook(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Rook
         delete piece;
     } else if (intoPiece == "Knight") {
         board[piece->getX()][piece->getY()] = new Knight(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Knight
@@ -233,4 +238,22 @@ bool Board::promote(Piece* piece, std::string intoPiece) {
     }
 
     return false; // Return false indicating the promotion was handled
+}
+
+
+void Board::display(int x, int y, int code) {
+    if (code == 1) {
+        std::cout << "Successfully set up the board." << std::endl;
+    } else if (code == 2) {
+        std::cout << "CASTLING" << std::endl;
+    } else if (code == 3) {
+        std::string name = board[x][y]->getName();
+        std::cout << name << " has moved from (" << x << "," << y << ") to ";
+    } else if (code == 4) {
+        std::cout << "(" << x << "," << y << ")";
+    } else if (code == 5) {
+        std::string name = board[x][y]->getName();
+        std::cout << " and swap into " << name << "." << std::endl;
+    }
+
 }

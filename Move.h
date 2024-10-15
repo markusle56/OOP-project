@@ -6,9 +6,6 @@
 
 // Class to represent a chess move
 class Move {
-    private:
-        Piece* captured_piece; // Pointer to the captured piece, if any
-    
     public:
         Move(int startX, int startY, int endX, int endY, Piece* captured); // Constructor
 
@@ -18,6 +15,8 @@ class Move {
 
         int startX, startY; // Starting position of the move
         int endX, endY; // Ending position of the move
+        Piece* captured_piece; // Pointer to the captured piece, if any
+    
 };
 
 #endif
