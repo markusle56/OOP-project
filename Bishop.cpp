@@ -11,7 +11,7 @@ Bishop::Bishop(bool isWhite, int x, int y) : Piece(isWhite, x, y) {
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        
+        std::cout<<"ERROR.....Could not load the Bishop image"<<std::endl;
     }
     sprite.setTexture(texture);
 }
