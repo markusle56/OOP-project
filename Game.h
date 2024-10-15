@@ -16,6 +16,7 @@ class Game {
         Piece * selectedPiece;
         sf::RenderWindow subWindow;
         bool subWindowOpen;
+        int stage;
     public:
         Game();
         ~Game();
@@ -26,6 +27,7 @@ class Game {
         void handleInput();
         void update();
         void drawPromote(sf::RenderWindow & subWindow);
+        void resetGame();
 
 };
 

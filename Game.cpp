@@ -1,6 +1,7 @@
 #include "Game.h"
+#include <string>
 
-Game::Game(): window(sf::VideoMode(800,800), "Magic Chess"), isWhiteTurn(true), gameOver(false), selectedPiece(nullptr), subWindowOpen(false){
+Game::Game(): window(sf::VideoMode(800,800), "Magic Chess"), isWhiteTurn(true), gameOver(false), selectedPiece(nullptr), subWindowOpen(false), stage(0) {
 };
 
 Game::~Game() {}
@@ -28,40 +29,54 @@ void Game::handleInput()
         if(event.type == sf::Event::Closed) {
             window.close();
         }
-       
-        if(event.type == sf::Event::MouseButtonPressed)
-        {
-            if (event.mouseButton.button == sf::Mouse::Left) {
-                int mouseX = event.mouseButton.x;
-                int mouseY = event.mouseButton.y;
-                int X = mouseX / 100;
-                int Y = mouseY / 100;
-                if (selectedPiece == nullptr) {
-                    selectedPiece = board.getPieceAt(X,Y);
-                    if (selectedPiece && selectedPiece->getIsWhite() == isWhiteTurn) {
-                        possibleMoves = selectedPiece->getPossibleMoves(board);
+       if (stage == 0) { 
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                stage = 1; 
+            }
+
+       } else if (stage == 1) {
+            if(event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    int mouseX = event.mouseButton.x;
+                    int mouseY = event.mouseButton.y;
+                    int X = mouseX / 100;
+                    int Y = mouseY / 100;
+                    if (selectedPiece == nullptr) {
+                        selectedPiece = board.getPieceAt(X,Y);
+                        if (selectedPiece && selectedPiece->getIsWhite() == isWhiteTurn) {
+                            possibleMoves = selectedPiece->getPossibleMoves(board);
+                        } else {
+                            selectedPiece = nullptr;
+                        }
                     } else {
-                        selectedPiece = nullptr;
-                    }
-                } else {
-                    if (selectedPiece->getX() == X &&  selectedPiece->getY() == Y) {
-                        selectedPiece = nullptr;
-                    } else {
-                        for (auto & move : possibleMoves) {
-                            if (move.endX == X && move.endY == Y) {
-                                move.execute(board);
-                                isWhiteTurn = !isWhiteTurn;
-                                selectedPiece = nullptr;
-                                break;
+                        if (selectedPiece->getX() == X &&  selectedPiece->getY() == Y) {
+                            selectedPiece = nullptr;
+                        } else {
+                            for (auto & move : possibleMoves) {
+                                if (move.endX == X && move.endY == Y) {
+                                    move.execute(board);
+                                    isWhiteTurn = !isWhiteTurn;
+                                    selectedPiece = nullptr;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (selectedPiece == nullptr) {
-                        possibleMoves.clear();
+                        if (selectedPiece == nullptr) {
+                            possibleMoves.clear();
+                        }
                     }
                 }
             }
-        }
+       } else if (stage == 2 || stage == 3) {
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Y) {
+                resetGame();
+            } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+                window.close();
+            }
+
+       }
+
     }
 }
 
@@ -75,32 +90,68 @@ void Game::update()
         
     }
     if(board.isCheck(isWhiteTurn) == sf::Vector2i(-2,-2)) {
-        window.close();
+        gameOver = true;
+        if (isWhiteTurn) {
+            stage = 2; 
+            // black win 
+        } else {
+            stage = 3;
+        }
         return;
     }
 }
 
 void Game::render()
-{
-    window.clear(sf::Color::White);
+{   
+    if (stage == 0) {
+        window.clear(sf::Color::White);
+        sf::Texture introTexture; 
+        if (!introTexture.loadFromFile("IMG/Intro.png")) {
+            std::cout<<"ERROR! Can not load intro image"<<std::endl;
+            return; 
+        }
+        sf::Sprite intro(introTexture);
+        window.draw(intro);
+       
+        window.display();
 
-    board.drawBoard(window);
+    } else if (stage == 1) {
+        window.clear(sf::Color::White);
 
-    sf::Vector2i kingPosition = board.isCheck(isWhiteTurn);
-    if (kingPosition.x >= 0 ){
-        Piece * king = board.getPieceAt(kingPosition.x,kingPosition.y);
-        king->draw_background(window, "red");
+        board.drawBoard(window);
+
+        sf::Vector2i kingPosition = board.isCheck(isWhiteTurn);
+        if (kingPosition.x >= 0 ){
+            Piece * king = board.getPieceAt(kingPosition.x,kingPosition.y);
+            king->draw_background(window, "red");
+        }
+        if(selectedPiece) {
+            selectedPiece->draw_background(window, "yellow");
+        }
+        board.drawPieces(window);
+        for (auto move : possibleMoves) {
+            move.draw(window);
+        } 
+        window.display();
+
+        if (subWindowOpen) {drawPromote(subWindow);}
+    } else if (stage == 2 || stage == 3) {
+        sf::Texture outtroTexture; 
+        std::string filePath;
+        if (stage == 2) {
+            filePath = "IMG/blackWin.png";
+        } else {
+            filePath = "IMG/whiteWin.png";
+        }
+        if (!outtroTexture.loadFromFile(filePath)) {
+            std::cout<<"ERROR! Can not load outtro image"<<std::endl;
+            return;
+        }
+        sf::Sprite outtro(outtroTexture);
+        window.draw(outtro);
+       
+        window.display();
     }
-    if(selectedPiece) {
-        selectedPiece->draw_background(window, "yellow");
-    }
-    board.drawPieces(window);
-    for (auto move : possibleMoves) {
-        move.draw(window);
-    } 
-    window.display();
-
-    if (subWindowOpen) {drawPromote(subWindow);}
 }
 
 void Game::drawPromote(sf::RenderWindow & subWindow) {
@@ -196,4 +247,16 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
     subWindow.draw(bishop);
     subWindow.draw(knight);
     subWindow.display();
+}
+
+
+void Game::resetGame() {
+
+    board.setupBoard();           
+    isWhiteTurn = true;      
+    selectedPiece = nullptr;    
+    possibleMoves.clear();      
+    gameOver = false;             
+    subWindowOpen = false;      
+    stage = 1;                 
 }
