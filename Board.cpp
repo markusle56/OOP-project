@@ -85,6 +85,7 @@ Piece* Board::getPieceAt(int x, int y) {
 
 void Board::movePiece(const Move& move) {
     Piece* piece = board[move.startX][move.startY]; // Get piece at start position
+
     if (piece) {
         display(move.startX,move.startY, 3);
         display(move.endX, move.endY, 4);
@@ -96,7 +97,7 @@ void Board::movePiece(const Move& move) {
         // Handle piece swap after capture
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece); // Swap if needed
-            display(move.endX, move.endX, 5);
+            display(move.endX, move.endY, 5);
         }
         display(0, 0, 6);
         // Handle castling

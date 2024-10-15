@@ -1,6 +1,7 @@
 #include "Move.h"
 #include "Board.h"
 #include "Piece.h"
+#include <iostream>
 
 // Constructor to initialize the move and set the captured piece (if any)
 Move::Move(int startX, int startY, int endX, int endY, Piece* captured) : startX(startX), startY(startY), endX(endX), endY(endY), captured_piece(captured) {}
