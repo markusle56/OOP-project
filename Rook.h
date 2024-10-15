@@ -3,16 +3,17 @@
 
 #include "Piece.h"
 
-class Rook: public Piece {
-    private: 
-        bool firstMove;
-        bool castle;
+// Rook class inherits from Piece
+class Rook : public Piece {
+    private:
+        bool firstMove; // Tracks if Rook has moved
     public:
-        Rook(bool isWhile, int x, int y);
-        void draw(sf::RenderWindow &window);
-        virtual std::vector<Move> getPossibleMoves(Board& board);
-        bool isSwappable(bool isWhite);
-        bool getFirstMove();
-        void doFirstMove();
+        Rook(bool isWhite, int x, int y); // Constructor
+        void draw(sf::RenderWindow &window); // Draw the Rook
+        virtual std::vector<Move> getPossibleMoves(Board& board); // Get possible moves
+        bool isSwappable(bool isWhite); // Check if swappable
+        bool getFirstMove(); // Check if it's the first move
+        void doFirstMove(); // Mark that the first move has been made
 };
+
 #endif

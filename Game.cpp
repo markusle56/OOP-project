@@ -16,17 +16,14 @@ void Game::init() {
 void Game::run() {
     while (window.isOpen()) {
         handleInput(); // Process inputs
-        update();      // Update game state
-        render();      // Draw game elements
+        update(); // Update game state
+        render(); // Draw game elements
     }
 }
 
-
-void Game::handleInput()
-{
+void Game::handleInput() {
     sf::Event event;
-    while (window.pollEvent(event)) // Poll for events
-    {
+    while (window.pollEvent(event)) {// Poll for events 
         if (event.type == sf::Event::Closed) { // Close window event
             window.close();
         }
@@ -83,10 +80,7 @@ void Game::handleInput()
     }
 }
 
-
-
-void Game::update()
-{   
+void Game::update() {   
     // Check if a piece can be promoted and the promotion window is not open
     if (board.canPromote() && !subWindowOpen) {
         subWindow.create(sf::VideoMode(600, 200), "Promote"); // Create promotion window
@@ -106,8 +100,7 @@ void Game::update()
     }
 }
 
-void Game::render()
-{   
+void Game::render() {   
     if (stage == 0) { // Intro screen
         window.clear(sf::Color::White); // Clear window with white background
         sf::Texture introTexture; 
@@ -117,39 +110,29 @@ void Game::render()
         }
         sf::Sprite intro(introTexture);
         window.draw(intro); // Draw intro image
-        
         window.display(); // Display contents
-
     } else if (stage == 1) { // Main game rendering
         window.clear(sf::Color::White); // Clear window with white background
-
         board.drawBoard(window); // Draw the chessboard
-
         // Check if a king is in check
         sf::Vector2i kingPosition = board.isCheck(isWhiteTurn);
         if (kingPosition.x >= 0) { // If king is in check
             Piece* king = board.getPieceAt(kingPosition.x, kingPosition.y); 
             king->draw_background(window, "red"); // Highlight king in red
         }
-        
         if (selectedPiece) {
             selectedPiece->draw_background(window, "yellow"); // Highlight selected piece in yellow
         }
-
         board.drawPieces(window); // Draw all pieces on the board
-        
         // Highlight possible moves
         for (auto move : possibleMoves) {
             move.draw(window); // Draw possible moves for selected piece
         }
-
         window.display(); // Display game contents
-
         // Handle promotion window if it's open
         if (subWindowOpen) {
             drawPromote(subWindow); // Render promotion window
         }
-
     } else if (stage == 2 || stage == 3) { // Game over screens
         sf::Texture outtroTexture; 
         std::string filePath = (stage == 2) ? "IMG/blackWin.png" : "IMG/whiteWin.png"; // Select win image
@@ -159,7 +142,6 @@ void Game::render()
         }
         sf::Sprite outtro(outtroTexture);
         window.draw(outtro); // Draw win image
-        
         window.display(); // Display win screen
     }
 }
@@ -169,7 +151,7 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
     // Load the textures (every time the function is called, but only when needed)
     sf::Texture queenTexture, rookTexture, bishopTexture, knightTexture, backgroundTexture;
     if (!backgroundTexture.loadFromFile("IMG/promote_page.png")) {
-        std::cout<<"Error loading background!"<<std::endl;
+        std::cout << "Error loading background!" << std::endl;
         return;
     }
     if (selectedPiece->getIsWhite()) {
@@ -189,25 +171,21 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
             return;
         } 
     }
-
     // Create sprites using the textures
     sf::Sprite queen(queenTexture);
     sf::Sprite rook(rookTexture);
     sf::Sprite bishop(bishopTexture);
     sf::Sprite knight(knightTexture);
     sf::Sprite background(backgroundTexture);
-
     // Scale and position the sprites
     queen.setScale(0.15, 0.15);
     rook.setScale(0.15, 0.15);
     bishop.setScale(0.15, 0.15);
     knight.setScale(0.15, 0.15);
-
     queen.setPosition(50, 70);
     rook.setPosition(190, 70);
     bishop.setPosition(330, 70);
     knight.setPosition(470, 70);
-
     // Event loop for the subwindow
     sf::Event event;
     while (subWindow.pollEvent(event)) {
@@ -219,7 +197,7 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
         if (event.type == sf::Event::MouseButtonPressed) {
             sf::Vector2i mousePos = sf::Mouse::getPosition(subWindow);
             if (!selectedPiece) {
-                std::cout<<"ERROR DID NOT SEE PAWN TO PROMOTED"<<std::endl;
+                std::cout << "ERROR DID NOT SEE PAWN TO PROMOTED" << std::endl;
             }
             // Check if user clicked on one of the pieces
             if (queen.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
@@ -249,7 +227,6 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
             }
         }
     }
-
     // Draw the subwindow contents (sprites)
     subWindow.clear();
     subWindow.draw(background);
@@ -260,9 +237,7 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
     subWindow.display();
 }
 
-
 void Game::resetGame() {
-
     board.setupBoard();           // Reset the chessboard to the initial setup
     isWhiteTurn = true;           // Set the turn to white
     selectedPiece = nullptr;      // Deselect any selected piece
