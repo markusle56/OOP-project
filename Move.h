@@ -7,8 +7,6 @@
 // Class to represent a chess move
 class Move {
     private:
-        int startX, startY; // Starting position of the move
-        int endX, endY; // Ending position of the move
         Piece* captured_piece; // Pointer to the captured piece, if any
     
     public:
@@ -17,6 +15,9 @@ class Move {
         void execute(Board& board); // Executes the move on the given board
         bool isTargeted(Piece *piece); // Checks if the move targets the given piece
         void draw(sf::RenderWindow &window); // Draws the move highlight on the window
+
+        int startX, startY; // Starting position of the move
+        int endX, endY; // Ending position of the move
 };
 
 #endif

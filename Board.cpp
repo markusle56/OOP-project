@@ -66,24 +66,14 @@ void Board::setupBoard() {
     // Set up rooks, knights, and bishops
     int temp[] = {0, 7};  // Positions for back row pieces (0 for black, 7 for white)
     for (int i = 0; i < 2; i++) {
-<<<<<<< HEAD
-        board[0][temp[i]] = new Brook(i, 0, temp[i]);    // Rooks
-        board[7][temp[i]] = new Brook(i, 7, temp[i]);
+        board[0][temp[i]] = new Rook(i, 0, temp[i]);    // Rooks
+        board[7][temp[i]] = new Rook(i, 7, temp[i]);
         board[1][temp[i]] = new Knight(i, 1, temp[i]);   // Knights
         board[6][temp[i]] = new Knight(i, 6, temp[i]);
         board[2][temp[i]] = new Bishop(i, 2, temp[i]);   // Bishops
         board[5][temp[i]] = new Bishop(i, 5, temp[i]);
         board[3][temp[i]] = new Queen(i, 3, temp[i]);  // Queen
         board[4][temp[i]] = new King(i, 4, temp[i]);   // King
-=======
-            board[0][temp[i]] = new Rook(i, 0, temp[i]);
-            board[7][temp[i]] = new Rook(i, 7, temp[i]);
-            board[1][temp[i]] = new Knight(i,1,temp[i]);
-            board[6][temp[i]] = new Knight(i,6,temp[i]);
-            board[2][temp[i]] = new Bishop(i,2,temp[i]);
-            board[5][temp[i]] = new Bishop(i,5,temp[i]);
-            // need to covert
->>>>>>> b292f508da0057779522980a345abb67b2c7ff30
     }
 }
 
@@ -103,7 +93,6 @@ void Board::movePiece(const Move& move) {
 
         // Handle castling
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
-<<<<<<< HEAD
             if (piece->getX() > move.startX) { // King-side castle
                 Piece* rook = board[7][move.startY]; // Get king-side rook
                 if (rook && rook->getName() == "Brook") {
@@ -115,20 +104,6 @@ void Board::movePiece(const Move& move) {
                 Piece* rook = board[0][move.startY]; // Get queen-side rook
                 if (rook && rook->getName() == "Brook") {
                     board[3][move.startY] = rook; // Move rook next to king
-=======
-            if (piece->getX() > move.startX) {
-                Piece* rook = board[7][move.startY]; 
-                if (rook && rook->getName() == "Rook") {
-                    board[5][move.startY] = rook;
-                    board[7][move.startY] = nullptr;
-                    rook->setPosition(5, move.startY);
-                }
-            }
-            else if (piece->getX() < move.startX) {
-                Piece* rook = board[0][move.startY]; 
-                if (rook && rook->getName() == "Rook") {
-                    board[3][move.startY] = rook;
->>>>>>> b292f508da0057779522980a345abb67b2c7ff30
                     board[0][move.startY] = nullptr;
                     rook->setPosition(3, move.startY);
                 }
@@ -247,11 +222,7 @@ bool Board::promote(Piece* piece, std::string intoPiece) {
         board[piece->getX()][piece->getY()] = new Queen(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Queen
         delete piece; // Delete the old pawn
     } else if (intoPiece == "Rook") {
-<<<<<<< HEAD
         board[piece->getX()][piece->getY()] = new Brook(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Rook
-=======
-        board[piece->getX()][piece->getY()] = new Rook(piece->getIsWhite(), piece->getX(), piece->getY());
->>>>>>> b292f508da0057779522980a345abb67b2c7ff30
         delete piece;
     } else if (intoPiece == "Knight") {
         board[piece->getX()][piece->getY()] = new Knight(piece->getIsWhite(), piece->getX(), piece->getY()); // Promote to Knight
