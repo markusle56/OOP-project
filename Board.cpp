@@ -96,7 +96,7 @@ void Board::movePiece(const Move& move) {
         // Handle piece swap after capture
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece); // Swap if needed
-            display(move.endX, move.endX, 5);
+            display(move.endX, move.endY, 5);
         }
         display(0, 0, 6);
         // Handle castling
