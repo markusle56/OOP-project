@@ -34,14 +34,16 @@ std::vector<Move> King::getPossibleMoves(Board& board) {
             int newX = x + x1;
             int newY = y + y1;
             // Ensure new position is within the board
-            if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-                Piece* targetedPiece = board.getPieceAt(newX, newY);
-                // Empty space, add move
-                if (targetedPiece == nullptr) {
-                    moves.emplace_back(x, y, newX, newY, nullptr);
-                // Opponent's piece, add capture and stop
-                } else if (targetedPiece->getIsWhite() != isWhite) {
-                    moves.emplace_back(x, y, newX, newY, targetedPiece);
+            if (newX != x || newY != y) {
+                if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
+                    Piece* targetedPiece = board.getPieceAt(newX, newY);
+                    // Empty space, add move
+                    if (targetedPiece == nullptr) {
+                        moves.emplace_back(x, y, newX, newY, nullptr);
+                    // Opponent's piece, add capture and stop
+                    } else if (targetedPiece->getIsWhite() != isWhite) {
+                        moves.emplace_back(x, y, newX, newY, targetedPiece);
+                    }
                 }
             }
         }
