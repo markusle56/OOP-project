@@ -7,10 +7,10 @@
 
 int main()
 {
+    // Initialize the game and start the main loop
     Game game;
     game.init();
     game.run();
-
 
     return 0;
 }

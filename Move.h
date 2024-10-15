@@ -2,24 +2,21 @@
 #define MOVE_H
 
 #include "Piece.h"
+#include <SFML/Graphics.hpp>
 
-class Piece;
-class Board;
+// Class to represent a chess move
+class Move {
+    private:
+        int startX, startY; // Starting position of the move
+        int endX, endY; // Ending position of the move
+        Piece* captured_piece; // Pointer to the captured piece, if any
+    
+    public:
+        Move(int startX, int startY, int endX, int endY, Piece* captured); // Constructor
 
-class Move
-{
-
-public:
-    int startX, startY;
-    int endX, endY;
-    Piece* captured_piece;
-
-    Move(int startX, int startY, int endX, int endY, Piece* captured);
-    void execute(Board& board);
-    bool isTargeted(Piece * piece);
-    void draw(sf::RenderWindow &window);
-
-   
+        void execute(Board& board); // Executes the move on the given board
+        bool isTargeted(Piece *piece); // Checks if the move targets the given piece
+        void draw(sf::RenderWindow &window); // Draws the move highlight on the window
 };
 
 #endif
