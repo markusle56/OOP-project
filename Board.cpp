@@ -96,8 +96,9 @@ void Board::movePiece(const Move& move) {
         // Handle piece swap after capture
         if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
             this->swap(piece); // Swap if needed
+            display(move.endX, move.endX, 5);
         }
-        display(move.endX, move.endY, 5);
+        display(0, 0, 6);
         // Handle castling
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
             if (piece->getX() > move.startX) { // King-side castle
@@ -235,10 +236,12 @@ void Board::display(int x, int y, int code) {
         std::string name = board[x][y]->getName();
         std::cout << name << " has moved from (" << x << "," << y << ") to ";
     } else if (code == 4) {
-        std::cout << "(" << x << "," << y << ")";
+        std::cout << "(" << x << "," << y << ").";
     } else if (code == 5) {
         std::string name = board[x][y]->getName();
-        std::cout << " and swap into " << name << "." << std::endl;
+        std::cout << "The choosen piece is swapped into " << name << ".";
+    } else if (code == 6) {
+        std::cout << std::endl; 
     }
 
 }
