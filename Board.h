@@ -7,7 +7,7 @@
 #include "Pawn.h"
 #include "King.h"
 #include "Bishop.h"
-#include "Brook.h"
+#include "Rook.h"
 #include "Queen.h"
 #include "Knight.h"
 #include <vector>

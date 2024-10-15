@@ -163,7 +163,7 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
     }
     if (selectedPiece->getIsWhite()) {
         if (!queenTexture.loadFromFile("IMG/Queen_W.png") ||
-            !rookTexture.loadFromFile("IMG/Brook_W.png") ||
+            !rookTexture.loadFromFile("IMG/Rook_W.png") ||
             !bishopTexture.loadFromFile("IMG/Bishop_W.png") ||
             !knightTexture.loadFromFile("IMG/Knight_W.png")) {
             std::cout << "Error loading promotion textures!" << std::endl;
@@ -171,7 +171,7 @@ void Game::drawPromote(sf::RenderWindow & subWindow) {
         } 
     } else {
         if (!queenTexture.loadFromFile("IMG/Queen_B.png") ||
-            !rookTexture.loadFromFile("IMG/Brook_B.png") ||
+            !rookTexture.loadFromFile("IMG/Rook_B.png") ||
             !bishopTexture.loadFromFile("IMG/Bishop_B.png") ||
             !knightTexture.loadFromFile("IMG/Knight_B.png")) {
             std::cout << "Error loading promotion textures!" << std::endl;

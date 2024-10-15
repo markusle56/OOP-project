@@ -58,8 +58,8 @@ void Board::setupBoard() {
     }
     int temp[] = {0,7};
     for (int i = 0; i < 2; i++) {
-            board[0][temp[i]] = new Brook(i, 0, temp[i]);
-            board[7][temp[i]] = new Brook(i, 7, temp[i]);
+            board[0][temp[i]] = new Rook(i, 0, temp[i]);
+            board[7][temp[i]] = new Rook(i, 7, temp[i]);
             board[1][temp[i]] = new Knight(i,1,temp[i]);
             board[6][temp[i]] = new Knight(i,6,temp[i]);
             board[2][temp[i]] = new Bishop(i,2,temp[i]);
@@ -88,7 +88,7 @@ void Board::movePiece(const Move& move) {
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
             if (piece->getX() > move.startX) {
                 Piece* rook = board[7][move.startY]; 
-                if (rook && rook->getName() == "Brook") {
+                if (rook && rook->getName() == "Rook") {
                     board[5][move.startY] = rook;
                     board[7][move.startY] = nullptr;
                     rook->setPosition(5, move.startY);
@@ -96,7 +96,7 @@ void Board::movePiece(const Move& move) {
             }
             else if (piece->getX() < move.startX) {
                 Piece* rook = board[0][move.startY]; 
-                if (rook && rook->getName() == "Brook") {
+                if (rook && rook->getName() == "Rook") {
                     board[3][move.startY] = rook;
                     board[0][move.startY] = nullptr;
                     rook->setPosition(3, move.startY);
@@ -190,7 +190,7 @@ bool Board::promote(Piece * piece, std::string intoPiece) {
         board[piece->getX()][piece->getY()] = new Queen(piece->getIsWhite(), piece->getX(), piece->getY());
         delete piece;
     } else if (intoPiece == "Rook") {
-        board[piece->getX()][piece->getY()] = new Brook(piece->getIsWhite(), piece->getX(), piece->getY());
+        board[piece->getX()][piece->getY()] = new Rook(piece->getIsWhite(), piece->getX(), piece->getY());
         delete piece;
     } else if (intoPiece == "Knight") {
         board[piece->getX()][piece->getY()] = new Knight(piece->getIsWhite(), piece->getX(), piece->getY());
