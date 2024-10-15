@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "iostream"
 
+// Bishop constructor, initializes Bishop with texture based on color
 Bishop::Bishop(bool isWhite, int x, int y) : Piece(isWhite, x, y) {
     name = "Bishop";
     if(isWhite) {
@@ -11,43 +12,46 @@ Bishop::Bishop(bool isWhite, int x, int y) : Piece(isWhite, x, y) {
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        std::cout<<"ERROR.....Could not load the Bishop image"<<std::endl;
+        std::cout << "ERROR.....Could not load the Bishop image" << std::endl;
     }
     sprite.setTexture(texture);
 }
 
-void Bishop::draw(sf::RenderWindow &window ) {
-    sprite.setScale(0.15,0.15);
-    this->setPosition(x,y);
-    window.draw(sprite);
+// Draw the Bishop on the board
+void Bishop::draw(sf::RenderWindow &window) {
+    sprite.setScale(0.15, 0.15); // Scale the image
+    this->setPosition(x, y); // Position the Bishop
+    window.draw(sprite); // Render it
 }
 
+// Get possible moves for Bishop
 std::vector<Move> Bishop::getPossibleMoves(Board& board) {
     std::vector<Move> moves;
-    //(+x, +y)
-    for (int i = 1; i < 8; i++) {
-        
-        int newX = x + i;
-        int newY = y + i;
 
+    // Move diagonally (+x, +y) 
+    for (int i = 1; i < 8; i++) {
+        int newX = x + i, newY = y + i;
+        // Check if within board boundaries
         if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
             Piece* targetedPiece = board.getPieceAt(newX, newY);
+            // Empty space, add move
             if (targetedPiece == nullptr) {
                 moves.emplace_back(x, y, newX, newY, nullptr);
+            // Opponent's piece, add capture and stop
             } else if (targetedPiece->getIsWhite() != isWhite) {
                 moves.emplace_back(x, y, newX, newY, targetedPiece);
                 break;
             } else {
+                // Friendly piece, stop
                 break;
             }
         }
     }
-    //(-x, +y)
+
+    // Move diagonally (-x, +y) 
     for (int i = 1; i < 8; i++) {
-        
         int newX = x - i;
         int newY = y + i;
-
         if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
             Piece* targetedPiece = board.getPieceAt(newX, newY);
             if (targetedPiece == nullptr) {
@@ -60,12 +64,10 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
             }
         }
     }
-    //(+x, -y)
-    for (int i = 1; i < 8; i++) {
-        
+    // Move diagonally (+x, -y)
+    for (int i = 1; i < 8; i++) { 
         int newX = x + i;
         int newY = y - i;
-
         if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
             Piece* targetedPiece = board.getPieceAt(newX, newY);
             if (targetedPiece == nullptr) {
@@ -78,12 +80,10 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
             }
         }
     }
-    //(-x,-y)
+    // Move diagonally (-x,-y)
     for (int i = 1; i < 8; i++) {
-        
         int newX = x - i;
         int newY = y - i;
-
         if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
             Piece* targetedPiece = board.getPieceAt(newX, newY);
             if (targetedPiece == nullptr) {
@@ -97,9 +97,11 @@ std::vector<Move> Bishop::getPossibleMoves(Board& board) {
         }
     }
 
+    // Return list of valid moves
     return moves;
 }
 
+// Check if the Bishop can swap based on color
 bool Bishop::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {
         return true;
