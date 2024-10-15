@@ -78,8 +78,8 @@ bool King::castleKingSide(Board& board) {
     }
 
     Piece* piece = board.getPieceAt(x + 3, y); 
-    Brook* rook = dynamic_cast<Brook*>(piece);
-    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Brook") {
+    Rook* rook = dynamic_cast<Rook*>(piece);
+    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Rook") {
         return false;
     }
     return true;
@@ -95,8 +95,8 @@ bool King::castleQueenSide(Board& board) {
     }
 
     Piece* piece = board.getPieceAt(x - 4, y); 
-    Brook* rook = dynamic_cast<Brook*>(piece);
-    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Brook") {
+    Rook* rook = dynamic_cast<Rook*>(piece);
+    if (rook == nullptr || !rook->getFirstMove() || rook->getName() != "Rook") {
         return false;
     }
     return true;

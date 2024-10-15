@@ -1,7 +1,7 @@
 #ifndef KING_H
 #define KING_H
 #include "Piece.h"
-#include "Brook.h"
+#include "Rook.h"
 
 class King : public Piece {
     private: 

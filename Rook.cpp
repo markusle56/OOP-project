@@ -1,28 +1,28 @@
-#include "Brook.h"
+#include "Rook.h"
 #include "Board.h"
 #include "iostream"
 
-Brook::Brook(bool isWhite, int x, int y): Piece(isWhite, x,y), castle(true), firstMove(true) {
-    name = "Brook";
+Rook::Rook(bool isWhite, int x, int y): Piece(isWhite, x,y), castle(true), firstMove(true) {
+    name = "Rook";
     if(isWhite) {
-        textureFilePath = "IMG/Brook_W.png";
+        textureFilePath = "IMG/Rook_W.png";
     } else {
-        textureFilePath = "IMG/Brook_B.png";
+        textureFilePath = "IMG/Rook_B.png";
     }
     if (!texture.loadFromFile(textureFilePath))
     {
-        std::cout<<"ERROR.....Could not load the brook image"<<std::endl;
+        std::cout<<"ERROR.....Could not load the Rook image"<<std::endl;
     }
     sprite.setTexture(texture);
 }
 
-void Brook::draw(sf::RenderWindow &window) {
+void Rook::draw(sf::RenderWindow &window) {
     sprite.setScale(0.15,0.15);
     this->setPosition(x,y);
     window.draw(sprite);
 }
 
-std::vector<Move> Brook::getPossibleMoves(Board& board) {
+std::vector<Move> Rook::getPossibleMoves(Board& board) {
     std::vector<Move> moves;
 
     for (int x1 = 1; x1 < 8; x1++) {
@@ -93,18 +93,18 @@ std::vector<Move> Brook::getPossibleMoves(Board& board) {
 }
 
 
-bool Brook::isSwappable(bool isWhite) {
+bool Rook::isSwappable(bool isWhite) {
     if (this->isWhite == isWhite) {
         return true;
     }
     return false;
 }
 
-bool Brook::getFirstMove() {
+bool Rook::getFirstMove() {
     return firstMove;
 }
 
-void Brook::doFirstMove() {
+void Rook::doFirstMove() {
     firstMove = false;
     if (!firstMove) {}
     return;

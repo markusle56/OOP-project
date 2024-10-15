@@ -1,14 +1,14 @@
-#ifndef BROOK_H
-#define BROOK_H
+#ifndef ROOK_H
+#define ROOK_H
 
 #include "Piece.h"
 
-class Brook: public Piece {
+class Rook: public Piece {
     private: 
         bool firstMove;
         bool castle;
     public:
-        Brook(bool isWhile, int x, int y);
+        Rook(bool isWhile, int x, int y);
         void draw(sf::RenderWindow &window);
         virtual std::vector<Move> getPossibleMoves(Board& board);
         bool isSwappable(bool isWhite);
