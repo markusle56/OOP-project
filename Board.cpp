@@ -76,7 +76,7 @@ void Board::setupBoard() {
         board[3][temp[i]] = new Queen(i, 3, temp[i]); // Queen
         board[4][temp[i]] = new King(i, 4, temp[i]); // King
     }
-    display(0,0,1);
+    display(0, 0, 1);
 }
 
 Piece* Board::getPieceAt(int x, int y) {
@@ -93,6 +93,11 @@ void Board::movePiece(const Move& move) {
         piece->setPosition(move.endX, move.endY); // Update piece position
         piece->doFirstMove(); // Mark piece's first move
         move_history.push_back(move); // Add move to history
+        // Handle piece swap after capture
+        if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
+            this->swap(piece); // Swap if needed
+        }
+        display(move.endX, move.endY, 5);
         // Handle castling
         if (piece->getName() == "King" && abs(piece->getX() - move.startX) == 2) {
             if (piece->getX() > move.startX) { // King-side castle
@@ -112,13 +117,8 @@ void Board::movePiece(const Move& move) {
                     rook->setPosition(3, move.startY);
                 }
             }
-            display(0,0,2);
+            display(0, 0, 2);
         }
-        // Handle piece swap after capture
-        if (move.captured_piece != nullptr && piece->isSwappable(piece->getIsWhite())) {
-            this->swap(piece); // Swap if needed
-        }
-        display(move.endX, move.endY, 5);
     }
     return;
 }
@@ -132,7 +132,6 @@ sf::Vector2i Board::isCheck(bool isWhite) {
     for (int i = 0; i < 8; i++) { 
         for (int j = 0; j < 8; j++) {
             piece = board[i][j];
-
             // Collect possible moves for enemy pieces
             if (piece && piece->getIsWhite() != isWhite) {
                 std::vector<Move> pieceMoves = piece->getPossibleMoves(*this);
@@ -226,7 +225,6 @@ bool Board::promote(Piece* piece, std::string intoPiece) {
     }
     return false; // Return false indicating the promotion was handled
 }
-
 
 void Board::display(int x, int y, int code) {
     if (code == 1) {

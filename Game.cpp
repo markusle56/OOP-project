@@ -10,7 +10,7 @@ Game::~Game() {}
 // Setup the board
 void Game::init() {
     board.setupBoard();
-    display(-1,-1);
+    display(-1, -1);
 }
 
 // Main game loop
@@ -75,10 +75,10 @@ void Game::handleInput() {
         } else if (stage == 2 || stage == 3) { 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Y) {
                 resetGame(); // Reset game if 'Y' is pressed
-                display(-3,-3);
+                display(-3, -3);
             } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
                 window.close(); // Close game if 'N' is pressed
-                display(-4,-4);
+                display(-4, -4);
             }
         }
     }
@@ -90,7 +90,7 @@ void Game::update() {
         subWindow.create(sf::VideoMode(600, 200), "Promote"); // Create promotion window
         subWindowOpen = true; // Mark promotion window as open
         selectedPiece = board.canPromote(); // Get the piece to be promoted
-        display(-5,-5);
+        display(-5, -5);
     }
     
     // Check if the current player is in checkmate
@@ -101,7 +101,7 @@ void Game::update() {
         } else {
             stage = 3; // White wins
         }
-        display(-2,-2);
+        display(-2, -2);
         return; // Exit function to stop further updates
     }
 }
@@ -251,4 +251,31 @@ void Game::resetGame() {
     gameOver = false;             // Reset the game over flag
     subWindowOpen = false;        // Close the promotion window if open
     stage = 1;                    // Set the game stage to the main game phase
+    display(-3, -3);
+}
+
+void Game::display(int x, int y) {
+    std::string user;
+    if (isWhiteTurn) {
+        user = "White";
+    } else {
+        user = "Black";
+    }
+    if (x >= 0) {
+        std::cout<<user<<" has clicked at square("<<x<<","<<y<<") on the board."<<std::endl;
+    } else if (x == - 1) {
+        std::cout<<"GAME START!"<<std::endl;
+    } else if (x == - 2) {
+        if (stage == 2) {
+            std::cout<<"GAME OVER! BLACK WIN"<<std::endl;
+        } else if (stage == 3) {
+            std::cout<<"GAME OVER! WHITE WIN"<<std::endl;
+        }
+    } else if (x == -3) {
+        std::cout<<"CREATE A NEW GAME"<<std::endl;
+    } else if (x == - 4 ) {
+        std::cout<<"QUIT!"<<std::endl;
+    } else if (x == -5) {
+        std::cout<<"PROMOTE THE PAWN"<<std::endl;
+    }
 }
