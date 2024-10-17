@@ -10,9 +10,9 @@
 class Game {
     private:
         Board board; // Game board
+        sf::RenderWindow window; // Main game window
         bool isWhiteTurn; // Tracks white's turn
         bool gameOver; // Tracks if the game is over
-        sf::RenderWindow window; // Main game window
         std::vector<Move> possibleMoves; // Possible moves for selected piece
         Piece * selectedPiece; // Currently selected piece
         sf::RenderWindow subWindow; // Promotion window

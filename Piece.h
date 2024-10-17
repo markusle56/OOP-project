@@ -19,11 +19,11 @@ class Piece {
         std::string textureFilePath; // File path for the texture
         bool isClicked; // Tracks if the piece is clicked
     public:
-        virtual void draw(sf::RenderWindow& window); // Draw the piece
+        virtual void draw(sf::RenderWindow& window) = 0; // Draw the piece
         Piece(bool isWhite, int x, int y); // Constructor
         void setPosition(int x, int y); // Set piece position
-        ~Piece(); // Destructor
-        virtual std::vector<Move> getPossibleMoves(Board& board); // Get valid moves
+        virtual ~Piece(); // Destructor
+        virtual std::vector<Move> getPossibleMoves(Board& board) ; // Get valid moves
         int getX(); // Get x position
         int getY(); // Get y position
         virtual std::string getName(); // Get the piece name

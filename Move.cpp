@@ -4,7 +4,7 @@
 #include <iostream>
 
 // Constructor to initialize the move and set the captured piece (if any)
-Move::Move(int startX, int startY, int endX, int endY, Piece* captured) : startX(startX), startY(startY), endX(endX), endY(endY), captured_piece(captured) {}
+Move::Move(int startX, int startY, int endX, int endY, Piece* captured) : captured_piece(captured), startX(startX), startY(startY), endX(endX), endY(endY) {}
 
 void Move::execute(Board& board) {
     // Retrieve the piece from the starting position

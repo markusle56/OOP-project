@@ -1,5 +1,6 @@
 #include "Move.h"
 #include "Piece.h"
+#include "Board.h"
 #include "Pawn.h"
 #include <iostream>
 
@@ -16,7 +17,7 @@ void testMoveConstructor() {
 
 void testMoveWithCapture() {
     // Simulate a piece being captured
-    Piece capturedPiece(true, 3, 3); // Assume a white piece at (3, 3)
+    Rook capturedPiece(true, 3, 3); // Assume a white piece at (3, 3)
     Move move(1, 1, 3, 3, &capturedPiece); // Move that captures a piece
 
     if (move.captured_piece == &capturedPiece) {
@@ -27,7 +28,7 @@ void testMoveWithCapture() {
 }
 
 void testMoveTargeting() {
-    Piece king(true, 4, 4); // White king at (4, 4)
+    King king(true, 4, 4); // White king at (4, 4)
     Move move(1, 1, 4, 4, nullptr); // Move to target the king's position
 
     if (move.isTargeted(&king)) {
