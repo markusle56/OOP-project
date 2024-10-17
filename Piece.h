@@ -23,7 +23,7 @@ class Piece {
         Piece(bool isWhite, int x, int y); // Constructor
         void setPosition(int x, int y); // Set piece position
         virtual ~Piece(); // Destructor
-        virtual std::vector<Move> getPossibleMoves(Board& board) ; // Get valid moves
+        virtual std::vector<Move> getPossibleMoves(Board& board); // Get valid moves
         int getX(); // Get x position
         int getY(); // Get y position
         virtual std::string getName(); // Get the piece name

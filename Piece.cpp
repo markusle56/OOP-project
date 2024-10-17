@@ -8,9 +8,6 @@ Piece::Piece(bool isWhite, int x, int y): x(x), y(y), isWhite(isWhite) {}
 // Destructor
 Piece::~Piece() {}
 
-// // Empty draw function (to be overridden by derived classes)
-// void Piece::draw(sf::RenderWindow& window) {}
-
 // Set the position of the piece on the board
 void Piece::setPosition(int x, int y) {
     this->x = x;
